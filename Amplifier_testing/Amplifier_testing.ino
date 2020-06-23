@@ -39,7 +39,7 @@ void loop() {
   adc1=ads1015.readADC_Differential_2_3(); //read difference between 2 and 3 input on first amplifier
   Serial.println(adc1);
   
-  adc2=ads1015_2.readADC_Differential_0_1();
+  adc2=ads1015_2.readADC_Differential_0_1();// second amplifier
   Serial.println(adc2);
   adc3=ads1015_2.readADC_Differential_2_3();
   Serial.println(adc3);
