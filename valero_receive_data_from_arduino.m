@@ -1,4 +1,4 @@
-s = serial('COM3');  %port
+s = serial('COM5');  %port
 set(s,'BaudRate',9600);  %
 fopen(s);  
 fileID = fopen('test_8.txt','w');
