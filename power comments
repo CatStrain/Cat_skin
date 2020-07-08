@@ -1,0 +1,12 @@
+Hey Dario,
+
+The following is what I have observed and my personal analysis due to the current device:
+
+1. About the power problem, as I am running the test for our new strain gauges (120 ohms), I discover that while running the circuit and reading the signal output from single strain gauge, the overheating problem emerges. The strain gauges become more delicate and easy to break. For me, it seems that maybe the voltage is over the SG limitation, however, we can't acctually find the parameters on the Amazon page. 
+
+2. which also confused me is that except the overheating problem, the single SG and multi-SGs work identically. Which might means the power is not the problem for overheating. then it comes to the third: 
+
+3. However, if I try to read them all at the same time, I don't see it "at the same time" as we know that arduino read the output the data one by one (you can set the delay time, for now is 100 ms), which means that they are actually not read at the same time. 
+I haven't try to change the output time-intervel as I remember I have test the old one(350 ohm) to have the best performances at time intervel 100 ms.
+
+The above is for the signal reading problems 
