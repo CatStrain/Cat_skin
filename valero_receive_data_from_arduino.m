@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 %%
 %This code is used to receive data from 8 strain gauges connected to one
 %Arduino board and generate a txt file that contains thes data. This code 
@@ -8,6 +9,9 @@
 
 %%
 s = serial('COM3');  %port
+=======
+s = serial('COM5');  %port
+>>>>>>> 4fdc31eaa26acdf15cc7274bdff7dbf6b17f1a2f
 set(s,'BaudRate',9600);  %
 fopen(s);  
 fileID = fopen('test_8.txt','w');

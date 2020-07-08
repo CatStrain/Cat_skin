@@ -1,1 +1,0 @@
-Tailun Liu is responsible for codes in development branch for strain gauge signal readings.
