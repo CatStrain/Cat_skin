@@ -1,3 +1,12 @@
+%%
+%This code is used to receive data from 8 strain gauges connected to one
+%Arduino board and generate a txt file that contains thes data. This code 
+%drags data from the serial port the arduino uses, and write them into a 
+%txt file.Each line in the text file represents a reading from the 8 
+%strain gauges, and data from each strain gauge is separated by a comma. 
+
+
+%%
 s = serial('COM3');  %port
 set(s,'BaudRate',9600);  %
 fopen(s);  
