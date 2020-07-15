@@ -1,3 +1,5 @@
+//This code is used to receive data from eight strain gauges which are connected to four amplfiers, and then print them to the serial port for further use.
+
 #include <Wire.h>
 #include <Adafruit_ADS1015.h>
 Adafruit_ADS1015 ads1015(0x48);      //create four amplfiers using different address
