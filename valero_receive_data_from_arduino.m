@@ -14,12 +14,12 @@ end
 clear all;clc;  % clear all variables
 %%
 
-s = serial('COM3');  %port
+s = serial('COM5');  %port
 set(s,'BaudRate',9600);  %
 fopen(s);  
-fileID = fopen('test_8.txt','w');
+fileID = fopen('test_10.txt','w');
  
-interval = 1600; %read 200 numbers from arduino. can be adjusted.
+interval = 400; %read 200 numbers from arduino. can be adjusted.
 passo = 1;
 t = 1;
 x1 = 0;   %8 signals representing 8 strai gauges 
