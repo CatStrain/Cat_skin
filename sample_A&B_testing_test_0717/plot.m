@@ -1,0 +1,1 @@
+plot(Time, M1B2)
