@@ -19,8 +19,14 @@ set(s,'BaudRate',9600);  %
 fopen(s);  
 fileID = fopen('test_10.txt','w');
  
-interval = 20; %read 200 numbers from arduino. can be adjusted.
+strain_gaige_lecture = 160; %read 200 numbers from arduino. can be adjusted. 
+                            %DUM: 200 times SG will be read
+                            %since we have 8 Strain Gauges, this needs to
+                            %be a multiple of 8 
 passo = 1;
+
+batch = 1;
+
 t = 1;
 x1 = 0;   %8 signals representing 8 strai gauges 
 x2 = 0;   %...
@@ -34,46 +40,63 @@ x8 = 0;
 i=1;
 %m=zeros(1,1000); %counter
 
-data = zeros (interval,8);
+data = zeros (strain_gaige_lecture/8,8);
 
-while(t < interval)
+while(t < strain_gaige_lecture)
     b = str2num(fgetl(s)); %takes one line from arduino
-    if (t > 3)
-        if (mod(i,8)==1)
-            x1 = b
-            fprintf(fileID,'%d ',x1);
-            %data(t,1) = b;
-        elseif (mod(i,8)==2)
-            x2 = b;
-            fprintf(fileID,'%d ',x2);
-            %data(t,2) = b;
-        elseif (mod(i,8)==3)
-            x3 = b;
-            fprintf(fileID,'%d ',x3);
-            %data(t,3) = b;
-        elseif (mod(i,8)==4)
-            x4 = b;
-            fprintf(fileID,'%d ',x4);
-            %data(t,4) = b;
-        elseif (mod(i,8)==5)
-            x5 = b;
-            fprintf(fileID,'%d ',x5);
-            %data(t,5) = b;
-        elseif (mod(i,8)==6)
-            x6 = b;
-            fprintf(fileID,'%d ',x6); 
-            %data(t,6) = b;
-        elseif (mod(i,8)==7)
-            x7 = b;
-            fprintf(fileID,'%d ',x7);
-            %data(t,7) = b;
-        else
-            x8 = b; 
-            fprintf(fileID,'%d\n',x8);
-            %data(t,8) = b;
+    
+    if (mod(i,8)==1)        %DUM ## What is "mod"?
+        x1 = b;
+        fprintf(fileID,'%d ',x1);
+        if (b~=0)
+            data(batch,1) = b;
         end
-        
-        %drawnow;
+    elseif (mod(i,8)==2)
+        x2 = b;
+        fprintf(fileID,'%d ',x2);
+        if (b~=0)
+            data(batch,2) = b;
+        end
+    elseif (mod(i,8)==3)
+        x3 = b;
+        fprintf(fileID,'%d ',x3);
+        if (b~=0)
+            data(batch,3) = b;
+        end
+    elseif (mod(i,8)==4)
+        x4 = b;
+        fprintf(fileID,'%d ',x4);
+        if (b~=0)
+            data(batch,4) = b;
+        end
+    elseif (mod(i,8)==5)
+        x5 = b;
+        fprintf(fileID,'%d ',x5);
+        if (b~=0)
+            data(batch,5) = b;
+        end
+    elseif (mod(i,8)==6)
+        x6 = b;
+        fprintf(fileID,'%d ',x6); 
+        if (b~=0)
+            data(batch,6) = b;
+        end
+    elseif (mod(i,8)==7)
+        x7 = b;
+        fprintf(fileID,'%d ',x7);
+        if (b~=0)
+            data(batch,7) = b;
+        end
+    else
+        x8 = b; 
+        fprintf(fileID,'%d\n',x8);
+        if (b~=0)
+            data(batch,8) = b;
+            batch = batch + 1;
+        else 
+            batch = batch + 1;
+        end
+    %drawnow;
     end
     i=i+1;                
     t = t+passo;
@@ -81,7 +104,10 @@ while(t < interval)
 end
 fclose(s);
 fclose(fileID);
+data 
 
-plot(data(:,8));
+plot(data(:,1));
+hold on 
+plot(data(:,2));
 
 
