@@ -43,12 +43,14 @@ data_2 = zeros (strain_gauge_lecture/8,8);
 %     b = str2num(fgetl(s)); %takes one line from arduino
 %     
     for data_rows = 1: total_batches
-        b = str2num(fgetl(s))
+        %b = str2num(fgetl(s)) %this should be put under the next for loop,
+        %or the eight columns would be the same
         for sg = 1:strain_gauges
+            b = str2num(fgetl(s));
 %             if (mod(i,8)==sg)
 %                 fprintf(fileID,'%d ',b);
-                if (b~=0)
-                    data_2(data_rows,sg) = b;
+                %if (b~=0) %we will write b no matter what we have, since that is the reading             
+            data_2(data_rows,sg) = b;
                 end
 %             end
         end
