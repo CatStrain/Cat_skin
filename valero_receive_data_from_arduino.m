@@ -15,12 +15,12 @@ clear all;
 clc;  % clear all variables
 %%
 
-s = serial('COM5');  %port
+s = serial('COM3');  %port
 set(s,'BaudRate',9600);  %
 fopen(s);  
 %fileID = fopen('test_10.txt','w');
  
-strain_gauge_lecture = 160; %read 200 numbers from arduino. can be adjusted. 
+strain_gauge_lecture = 800; %read 200 numbers from arduino. can be adjusted. 
                             %DUM: 200 times SG will be read
                             %since we have 8 Strain Gauges, this needs to
                             %be a multiple of the Strain Gauge number
@@ -43,11 +43,14 @@ for data_rows = 1: total_batches
 %             if (mod(i,8)==sg)
 %                 fprintf(fileID,'%d ',b);
               %if (b~=0) %we don't need this if function since it doesn't matter if we write 0 to the data matrix             
-        data_2(data_rows,sg) = b;
+        if b
+            data_2(data_rows,sg) = b;
+        end
     end
 end
+data_2 = circshift(data_2',5)';
 
-writematrix(data_2,'test_10.txt'); %we change to this because we have the datamatrix ready
+writematrix(data_2,'test0727_2.txt'); %we change to this because we have the datamatrix ready
 
 
 %fclose(s);
@@ -63,4 +66,3 @@ writematrix(data_2,'test_10.txt'); %we change to this because we have the datama
 % hold on 
 % plot(data_2(:,4));
 % hold on
-
