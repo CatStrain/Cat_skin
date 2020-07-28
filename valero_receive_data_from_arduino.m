@@ -43,24 +43,12 @@ data_2 = circshift(data_2',5)';
 
 writematrix(data_2,'test0727_2.txt'); 
 
+
 figure()
 
-
-plot(data_2(:,1));
-hold on 
-plot(data_2(:,2));
-hold on
-plot(data_2(:,3));
-hold on 
-plot(data_2(:,4));
-hold on
-plot(data_2(:,5));
-hold on
-plot(data_2(:,6));
-hold on
-plot(data_2(:,7));
-hold on
-plot(data_2(:,8));
-hold on
+for strain_gauge = 1 : strain_gauges
+    plot(data_2(:,strain_gauge));
+    hold on 
+end
 
 legend('SG1','SG2','SG3','SG4','SG5','SG6','SG7','SG8')
