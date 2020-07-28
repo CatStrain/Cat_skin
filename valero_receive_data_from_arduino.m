@@ -15,34 +15,25 @@ clear all;
 clc;  % clear all variables
 %%
 
-s = serial('COM3');  %port
-set(s,'BaudRate',9600);  %
+s = serial('COM5');  
+set(s,'BaudRate',9600);  
 fopen(s);  
-%fileID = fopen('test_10.txt','w');
  
 strain_gauge_lecture = 800; %read 200 numbers from arduino. can be adjusted. 
                             %DUM: 200 times SG will be read
                             %since we have 8 Strain Gauges, this needs to
                             %be a multiple of the Strain Gauge number
                             
-strain_gauges = 8;          %we have 8 strain gauges at the same time
+strain_gauges = 8;          %we have 8 strain gauges read at the same time
 total_batches = strain_gauge_lecture/strain_gauges;
 passo = 1;
 batch = 1;
 
 data_2 = zeros (total_batches,strain_gauges);
 
-% while(t < strain_gauge_lecture)
-%     b = str2num(fgetl(s)); %takes one line from arduino
-%     
 for data_rows = 1: total_batches
-        %b = str2num(fgetl(s)) %this should be put under the next for loop,
-        %or the eight columns would be the same
     for sg = 1:strain_gauges
         b = str2num(fgetl(s));
-%             if (mod(i,8)==sg)
-%                 fprintf(fileID,'%d ',b);
-              %if (b~=0) %we don't need this if function since it doesn't matter if we write 0 to the data matrix             
         if b
             data_2(data_rows,sg) = b;
         end
@@ -50,19 +41,26 @@ for data_rows = 1: total_batches
 end
 data_2 = circshift(data_2',5)';
 
-writematrix(data_2,'test0727_2.txt'); %we change to this because we have the datamatrix ready
+writematrix(data_2,'test0727_2.txt'); 
+
+figure()
 
 
-%fclose(s);
-%fclose(fileID);
+plot(data_2(:,1));
+hold on 
+plot(data_2(:,2));
+hold on
+plot(data_2(:,3));
+hold on 
+plot(data_2(:,4));
+hold on
+plot(data_2(:,5));
+hold on
+plot(data_2(:,6));
+hold on
+plot(data_2(:,7));
+hold on
+plot(data_2(:,8));
+hold on
 
-%figure()
- 
-% plot(data_2(:,1));
-% hold on 
-% plot(data_2(:,2));
-% hold on
-% plot(data_2(:,3));
-% hold on 
-% plot(data_2(:,4));
-% hold on
+legend('SG1','SG2','SG3','SG4','SG5','SG6','SG7','SG8')
