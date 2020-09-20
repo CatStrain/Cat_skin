@@ -52,62 +52,62 @@ for data_rows = 1: total_batches
     end
 end
 data_2 = circshift(data_2',5)';
-writematrix(data_2,'test0917_8.txt'); %we change to this because we have the datamatrix ready
+writematrix(data_2,'test0920_3.txt'); %we change to this because we have the datamatrix ready
 
-%Create table:
-T_number = array2table(Number);
-T_number.Properties.VariableNames = {'Number'};
-T_signal = array2table(data_2);
-T_signal.Properties.VariableNames(1:8) = {'A1','A2','A3','A4','A5','A6','A7','A8'};
-%Append the time number array to the signal data
-T = [T_number,T_signal];
-%Summrize the table:(show the data characterization)
-%slice into (5) parts:
-n=5;
-Ave_num = total_batches/n;
-num = T_number{1:Ave_num:end,1};
-% Create sub tables:
-%we could use foor loop but not necessary:
-stage_1 = T{num(1,1):num(2,1),2:9};
-stage_2 = T{num(2,1):num(3,1),2:9};
-stage_3 = T{num(3,1):num(4,1),2:9};
-stage_4 = T{num(4,1):num(5,1),2:9};
-stage_5 = T{num(5,1):end,2:9};
-% substract the mean:
-offset = mean(stage_1);
-mean = [mean(stage_1);mean(stage_2);mean(stage_3);mean(stage_4);mean(stage_5)];
-
-mean_offset = [mean-offset;
-%mean_offset = [mean(stage_1)-offset;mean(stage_2)-offset;mean(stage_3)-offset;mean(stage_4)-offset;mean(stage_5)-offset];
-
-% create x axe:
-enlongation = [0;1;2;3;4];
-plot(enlongation,mean);
-plot(enlongation,mean_offset);
-
-
-
-
-summary(T);
-%take the 
-% fill the missing part:
-%TF = fillmissing(T,'previous');
-
-
-% Import .txt version data into matlab table
-% Table = readtable('test0917_5.txt','Format','auto'['A1','A2','A3','A4','A5','A6','A7','A8'])
-
-
-%fclose(s);
-%fclose(fileID);
-
-%figure()
- 
-% plot(data_2(:,1));
-% hold on 
-% plot(data_2(:,2));
-% hold on
-% plot(data_2(:,3));
-% hold on 
-% plot(data_2(:,4));
-% hold on
+% %Create table:
+% T_number = array2table(Number);
+% T_number.Properties.VariableNames = {'Number'};
+% T_signal = array2table(data_2);
+% T_signal.Properties.VariableNames(1:8) = {'A1','A2','A3','A4','A5','A6','A7','A8'};
+% %Append the time number array to the signal data
+% T = [T_number,T_signal];
+% %Summrize the table:(show the data characterization)
+% %slice into (5) parts:
+% n=5;
+% Ave_num = total_batches/n;
+% num = T_number{1:Ave_num:end,1};
+% % Create sub tables:
+% %we could use foor loop but not necessary:
+% stage_1 = T{num(1,1):num(2,1),2:9};
+% stage_2 = T{num(2,1):num(3,1),2:9};
+% stage_3 = T{num(3,1):num(4,1),2:9};
+% stage_4 = T{num(4,1):num(5,1),2:9};
+% stage_5 = T{num(5,1):end,2:9};
+% % substract the mean:
+% offset = mean(stage_1);
+% mean = [mean(stage_1);mean(stage_2);mean(stage_3);mean(stage_4);mean(stage_5)];
+% 
+% mean_offset = [mean-offset;
+% %mean_offset = [mean(stage_1)-offset;mean(stage_2)-offset;mean(stage_3)-offset;mean(stage_4)-offset;mean(stage_5)-offset];
+% 
+% % create x axe:
+% enlongation = [0;1;2;3;4];
+% plot(enlongation,mean);
+% plot(enlongation,mean_offset);
+% 
+% 
+% 
+% 
+% summary(T);
+% %take the 
+% % fill the missing part:
+% %TF = fillmissing(T,'previous');
+% 
+% 
+% % Import .txt version data into matlab table
+% % Table = readtable('test0917_5.txt','Format','auto'['A1','A2','A3','A4','A5','A6','A7','A8'])
+% 
+% 
+% %fclose(s);
+% %fclose(fileID);
+% 
+% %figure()
+%  
+% % plot(data_2(:,1));
+% % hold on 
+% % plot(data_2(:,2));
+% % hold on
+% % plot(data_2(:,3));
+% % hold on 
+% % plot(data_2(:,4));
+% % hold on

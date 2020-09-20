@@ -31,7 +31,7 @@ mean_test = [mean(stage_1);mean(stage_2);mean(stage_3);mean(stage_4);mean(stage_
 mean_offset_test = mean_test-offset_test;% create x axe:
 enlongation = [1;2;3;4;5];
 
-%plot(enlongation,mean_offset_test);
+plot(enlongation,mean_offset_test);
 
 %Summrize the table:(show the data characterization)
 summary(T_test);
@@ -58,25 +58,51 @@ num = T_number{1:Ave_num:end,1};
          mean_test= [mean_test;mean(T_test{num(i,1):end,2:9})];
      end
  end
-% set the first part as offset
-offset_test = mean_test(1,:);
+% set the first 2 part as offset
+offset_test = (mean_test(1,:)+mean_test(2,:))/2;
 
 %mean_test = [mean(stage_1);mean(stage_2);mean(stage_3);mean(stage_4);mean(stage_5)];
 mean_offset_test = mean_test-offset_test;% create x axe:
 enlongation = [1:n]';
-
-plot(enlongation,mean_offset_test);
+%while ploting, change the range into stretch length
+% the original to maximun elongation is 90mm-100mm
+x = enlongation*(10/n)+90;
+figure(1)
+plot(x,mean_offset_test);
+xlabel('Skin-bridge Size (mm)');
+ylabel('Signal Magnitude(mean)');
+title('Signal plotting(0917-8)');
 legend('A1','A2','A3','A4','A5','A6','A7','A8');
 grid on;
 %hold on;
 
 %% MATLAB curve fitting(for one channel signal)
 %(method of interpolation)
-c = polyfit(enlongation,mean_offset_test(:,5),4);%number means how many times the curve repeats fitting
-d = polyval(c,enlongation,1);
-plot(enlongation,d, 'r' )
+figure(2)
+c = polyfit(x,mean_offset_test(:,3),4);%number means how many times the curve repeats fitting(can not over 4)
+d = polyval(c,x,1);
+plot(x,d, 'r' )
 grid on;
 hold on;
-plot(enlongation,mean_offset_test(:,5),'b')
+plot(x,mean_offset_test(:,3),'b')
+xlabel('Skin-bridge Size (mm)')
+ylabel('Signal Magnitude(mean)')
+title('Processed signal fiting for channel A3');% channel can be changed in c
 legend('curve fitting','original')
 hold off;
+
+%% Curve fitting for all channels
+figure(3)
+for i= 1:8
+    curve = polyfit(x,mean_offset_test(:,i),4);
+    fit = polyval(curve,x,1);
+    plot(x,fit)
+    grid on;
+    hold on;
+end
+xlabel('Skin-bridge Size (mm)')
+ylabel('Signal Magnitude(mean)')
+title('Processed signal fiting for all channels(0917-8)');
+legend('A1','A2','A3','A4','A5','A6','A7','A8');
+hold off;
+
