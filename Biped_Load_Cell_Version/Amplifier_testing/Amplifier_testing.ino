@@ -18,7 +18,7 @@ void setup() {
 
 void loop() {
   int16_t adc0, adc1; //, adc2, adc3, adc4, adc5, adc6, adc7;
-  ads1015.setGain(GAIN_TWOTHIRDS);  //set gain. default is twothirds. 
+  ads1015.setGain(GAIN_SIXTEEN);  //set gain. default is twothirds. 
   //ads1015_2.setGain(GAIN_FOUR);
 
   
@@ -54,7 +54,7 @@ void loop() {
 //  Serial.println(adc7);
 
   
-  delay(100);
+  delay(1000);
 
 
 }
