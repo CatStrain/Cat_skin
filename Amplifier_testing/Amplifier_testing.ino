@@ -3,20 +3,20 @@
 #include <Wire.h>
 #include <Adafruit_ADS1015.h>
 Adafruit_ADS1015 ads1015(0x48);      //create four amplfiers using different address
-Adafruit_ADS1015 ads1015_2(0x49);
-Adafruit_ADS1015 ads1015_3(0x4A);
+Adafruit_ADS1015 ads1015_2(0x49);  
+Adafruit_ADS1015 ads1015_3(0x4A);  
 Adafruit_ADS1015 ads1015_4(0x4B);
 
 
 void setup() {
   Serial.begin(9600);
   Serial.println("Hello");
-  Serial.println("Getting single-ended readings from AIN0..3");
+  Serial.println("Getting diferential readings");
   Serial.println("ADC Range: +/- 6.144V (1 bit = 3mV)");
   
   ads1015.begin();    //start four amplfiers
-  ads1015_2.begin();
-  ads1015_3.begin();
+  ads1015_2.begin();    
+  ads1015_3.begin();   
   ads1015_4.begin();
 }
 
@@ -24,6 +24,7 @@ void loop() {
   int16_t adc0, adc1, adc2, adc3, adc4, adc5, adc6, adc7;
   ads1015.setGain(GAIN_TWOTHIRDS);  //set gain. default is twothirds. 
   ads1015_2.setGain(GAIN_FOUR);
+
   
   //adc0 = ads1015.readADC_SingleEnded(0);
   //adc1 = ads1015.readADC_SingleEnded(1);
