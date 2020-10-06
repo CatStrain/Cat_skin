@@ -1,8 +1,8 @@
 %%
-%This code is used to receive data from 8 strain gauges connected to one
+%This code is used to receive data from strain gauges connected to one
 %Arduino board and generate a txt file that contains thes data. This code 
-%takes data from the serial port the arduino uses, and write them into a 
-%txt file.Each line in the text file represents a reading from the 8 
+%takes data from the serial port the arduino uses, and writes them into a 
+%txt file. Each line in the txt file represents a reading from the 
 %strain gauges, and data from each strain gauge is separated by a comma. 
 
 %%
@@ -19,36 +19,31 @@ s = serial('COM5');
 set(s,'BaudRate',9600);  
 fopen(s);  
  
-strain_gauge_lecture = 800; %read 200 numbers from arduino. can be adjusted. 
-                            %DUM: 200 times SG will be read
-                            %since we have 8 Strain Gauges, this needs to
-                            %be a multiple of the Strain Gauge number
-                            
-strain_gauges = 8;          %we have 8 strain gauges read at the same time
-total_batches = strain_gauge_lecture/strain_gauges;
-passo = 1;
-batch = 1;
+wheaston_bridges_lecture = 100; 
+wheaston_bridges = 2;       
+total_batches = wheaston_bridges_lecture/wheaston_bridges;
 
-data_2 = zeros (total_batches,strain_gauges);
+
+data_2 = zeros (total_batches,wheaston_bridges);
 
 for data_rows = 1: total_batches
-    for sg = 1:strain_gauges
-        b = str2num(fgetl(s));
-        if b
-            data_2(data_rows,sg) = b;
+    for wb = 1:wheaston_bridges
+        b = str2num(fgetl(s));              %read line from file
+        if b                                %if there is a line
+            data_2(data_rows,wb) = b;
         end
     end
 end
-data_2 = circshift(data_2',5)';
-
+%data_2 = circshift(data_2,5)';
+data_2
 writematrix(data_2,'test0727_2.txt'); 
 
 
 figure()
 
-for strain_gauge = 1 : strain_gauges
-    plot(data_2(:,strain_gauge));
+for wb = 1 : wheaston_bridges
+    plot(data_2(:,wb));
     hold on 
 end
 
-legend('SG1','SG2','SG3','SG4','SG5','SG6','SG7','SG8')
+legend('SG1','SG2')

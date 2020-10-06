@@ -54,7 +54,7 @@ void loop() {
 //  Serial.println(adc7);
 
   
-  delay(1000);
+  delay(100);
 
 
 }
