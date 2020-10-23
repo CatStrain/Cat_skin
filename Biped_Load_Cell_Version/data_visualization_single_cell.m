@@ -20,7 +20,7 @@ set(s,'BaudRate',9600);
 fopen(s);  
  
 wheaston_bridges_lecture = 200; 
-wheaston_bridges = 4;       
+wheaston_bridges = 1;       
 total_batches = wheaston_bridges_lecture/wheaston_bridges;
 
 
@@ -37,9 +37,9 @@ end
 %data_2 = circshift(data_2,5)';
 %data_2
 %DUM...
-data_2=data_2'
-data_2 = circshift(data_2,1);
-data_2=data_2'
+%data_2=data_2'
+%data_2 = circshift(data_2,1);
+%data_2=data_2'
 %...DUM
 writematrix(data_2,'test0727_2.txt'); 
 
@@ -51,4 +51,4 @@ for wb = 1 : wheaston_bridges
     hold on 
 end
 
-legend('LoadCell 1','2','3','4')
+legend('LoadCell 1')
