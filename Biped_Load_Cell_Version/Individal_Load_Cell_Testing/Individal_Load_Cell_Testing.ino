@@ -21,11 +21,11 @@ void loop() {
   int16_t adc0, adc1, adc2, adc3;  //, adc4, adc5, adc6, adc7;
   ads1015.setGain(GAIN_SIXTEEN);  //set gain. default is twothirds. 
   
-  adc0=ads1015.readADC_Differential_0_1(); //read difference between 0 and 1 input on first amplifier
-  Serial.println(adc0);
-/*  adc1=ads1015.readADC_Differential_2_3(); //read difference between 2 and 3 input on first amplifier
+  //adc0=ads1015.readADC_Differential_0_1(); //read difference between 0 and 1 input on first amplifier
+ //Serial.println(adc0);
+  adc1=ads1015.readADC_Differential_2_3(); //read difference between 2 and 3 input on first amplifier
   Serial.println(adc1);
-
+/*
   adc2=ads1015_2.readADC_Differential_0_1(); //read difference between 0 and 1 input on first amplifier
   Serial.println(adc2);
   adc3=ads1015_2.readADC_Differential_2_3(); //read difference between 2 and 3 input on first amplifier
