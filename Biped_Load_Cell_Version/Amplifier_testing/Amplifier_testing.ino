@@ -1,6 +1,6 @@
 //Code for Calibrating LoadCells
 //Inspiration from : https://www.youtube.com/watch?v=nGUpzwEa4vg
-
+//Use: 8V
 
 #include <Wire.h>
 #include <Adafruit_ADS1015.h>
@@ -26,16 +26,16 @@ void loop() {
   /*
   adc0 = ads1015.readADC_Differential_0_1(); //read difference between 0 and 1 input on first amplifier
   //val = ((count-1)/count) * val + (1/count)*adc0; // to get average reading value when no load
-    val=(adc0/3.0f)*270.0f;
-  Serial.println(val);
+    val=(adc0/1.0f)*50.0f;
+    Serial.println(val);
   //Serial.println(adc0);
   */
   
   adc1=ads1015.readADC_Differential_2_3(); 
   //adc1=adc1+10000;
   //val = ((count-1)/count) * val + (1/count)*adc1; // to get average reading value when no load 
-  adc1=adc1+2.57;
-  val=(adc1/1.0f)*130.0f;
+  adc1=adc1+4;
+  val=(adc1/1.0f)*50.0f;
   Serial.println(val);
   //Serial.println(adc1);
   /*adc2=ads1015_2.readADC_Differential_0_1(); 
