@@ -50,7 +50,7 @@ void loop() {
   //val=(adc0_2/1.0f)*70.0f;
   adc0_2 = adc0_2 * extra_gain;
   Serial.println(adc0_2);
-  
+  /*
   adc1=ads1015.readADC_Differential_2_3(); 
   //val = ((count-1)/count) * val + (1/count)*adc1; 
   adc1=adc1+4;
@@ -68,6 +68,7 @@ void loop() {
   adc3=adc3+4.0f; 
   val=(adc3/1.0f)*60.0f;
   Serial.println(val);
+  */
   /**/
   delay(100);
 
