@@ -37,9 +37,9 @@ end
 %data_2 = circshift(data_2,5)';
 %data_2
 %DUM...
-data_2=data_2'
-data_2 = circshift(data_2,1);
-data_2=data_2'
+% data_2=data_2'
+% data_2 = circshift(data_2,1);
+% data_2=data_2'
 %...DUM
 writematrix(data_2,'test0727_2.txt'); 
 
@@ -52,3 +52,4 @@ for wb = 1 : wheaston_bridges
 end
 
 legend('Bnd 1_a','Bnd 1_b','Load Cell 2','Load Cell 3','Load Cell 4')
+%legend('Load Cell 1','Load Cell 2','Load Cell 3','Load Cell 4')

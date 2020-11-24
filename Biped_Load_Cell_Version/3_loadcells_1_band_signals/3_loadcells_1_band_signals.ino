@@ -18,6 +18,7 @@ void setup() {
 }
 
 int16_t adc0_1, adc0_2, adc1, adc2, adc3, adc4, adc5; // adc6, adc7;
+int extra_gain = 5;
 float count = 0;                  //it is important that this value is a float to avoid roundig problems 
 float val = 0;                    // it is important that this value is a float to avoid roundig problems 
 
@@ -25,6 +26,7 @@ void loop() {
   count = count + 1 ; 
   ads1015.setGain(GAIN_SIXTEEN); 
   ads1015_2.setGain(GAIN_SIXTEEN);
+  ads1015_3.setGain(GAIN_SIXTEEN);
 
   /*
   adc0 = ads1015.readADC_Differential_0_1();                  //read difference between 0 and 1 input on first amplifier
@@ -33,16 +35,20 @@ void loop() {
   val=(adc0/1.0f)*70.0f;
   Serial.println(val);
   */
+  
   adc0_1 = ads1015_3.readADC_Differential_0_1();                  
   //val = ((count-1)/count) * val + (1/count)*adc0_1;           
   //adc0=adc0_1-1;
   //val=(adc0_1/1.0f)*70.0f;
+  adc0_1 = adc0_1 * extra_gain;
   Serial.println(adc0_1);
-
+ 
+ 
   adc0_2 = ads1015_3.readADC_Differential_2_3();                  
   //val = ((count-1)/count) * val + (1/count)*adc0;           
   //adc0_2=adc0_2-1;
   //val=(adc0_2/1.0f)*70.0f;
+  adc0_2 = adc0_2 * extra_gain;
   Serial.println(adc0_2);
   
   adc1=ads1015.readADC_Differential_2_3(); 
