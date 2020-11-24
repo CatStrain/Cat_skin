@@ -20,7 +20,7 @@ set(s,'BaudRate',9600);
 fopen(s);  
  
 wheaston_bridges_lecture = 200; 
-wheaston_bridges = 5;       
+wheaston_bridges = 2;       
 total_batches = wheaston_bridges_lecture/wheaston_bridges;
 
 
@@ -51,5 +51,6 @@ for wb = 1 : wheaston_bridges
     hold on 
 end
 
-legend('Bnd 1_a','Bnd 1_b','Load Cell 2','Load Cell 3','Load Cell 4')
+legend('STrain Gauge 1','Strain Gauge 2')
+%,'Load Cell 2','Load Cell 3','Load Cell 4')
 %legend('Load Cell 1','Load Cell 2','Load Cell 3','Load Cell 4')
