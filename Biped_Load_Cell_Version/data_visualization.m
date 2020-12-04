@@ -19,13 +19,26 @@ s = serial('COM5');
 set(s,'BaudRate',9600);  
 fopen(s);  
  
-wheaston_bridges_lecture = 200; 
+wheaston_bridges_lecture = 5000; 
 wheaston_bridges = 4;       
 total_batches = wheaston_bridges_lecture/wheaston_bridges;
 
 
 data_2 = zeros (total_batches,wheaston_bridges);
+flags = zeros (1,total_batches);
+flag_distance = 25;
+count = 1;
+flag_num = 1;
 
+for flag = 1: total_batches
+    if count == flag_distance
+        count = 0;
+        flags(flag)=1 ;
+    end   
+    count = count + 1;
+end
+
+fprintf ('data colection started')
 for data_rows = 1: total_batches
     for wb = 1:wheaston_bridges
         b = str2num(fgetl(s));              %read line from file
@@ -33,16 +46,23 @@ for data_rows = 1: total_batches
             data_2(data_rows,wb) = b;
         end
     end
+    if flags(data_rows)==1
+        %fprintf('Flag')
+        if flag_num == 9
+            flag_num = 0;
+        end
+        flag_num = flag_num +1
+        
+    end
 end
 %data_2 = circshift(data_2,5)';
 %data_2
 %DUM...
-data_2=data_2'
+data_2=data_2';
 data_2 = circshift(data_2,1);
 data_2=data_2'
 %...DUM
-writematrix(data_2,'test0727_2.txt'); 
-
+writematrix(data_2,'test_120320_1.txt'); 
 
 figure()
 
