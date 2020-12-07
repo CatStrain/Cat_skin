@@ -19,7 +19,7 @@ s = serial('COM5');
 set(s,'BaudRate',9600);  
 fopen(s);  
  
-wheaston_bridges_lecture = 5000; 
+wheaston_bridges_lecture = 25000; 
 wheaston_bridges = 4;       
 total_batches = wheaston_bridges_lecture/wheaston_bridges;
 
@@ -62,7 +62,7 @@ data_2=data_2';
 data_2 = circshift(data_2,1);
 data_2=data_2'
 %...DUM
-writematrix(data_2,'test_120320_1.txt'); 
+writematrix(data_2,'test_120420_5.txt'); 
 
 figure()
 
