@@ -12,6 +12,15 @@ zmp_locations_exp_2.data <- read.csv(mypath_2)
 zmp_locations_exp_3.data <- read.csv(mypath_3)
 zmp_locations_exp_4.data <- read.csv(mypath_4)
 
+newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4")
+colnames(zmp_locations_exp_1.data) <- newheaders
+colnames(zmp_locations_exp_2.data) <- newheaders
+colnames(zmp_locations_exp_3.data) <- newheaders
+colnames(zmp_locations_exp_4.data) <- newheaders
+##################################################################################################
+
+
+
 
 #Separate class and data
 iris.class <- iris.data[,c("species")] #Actual classes
