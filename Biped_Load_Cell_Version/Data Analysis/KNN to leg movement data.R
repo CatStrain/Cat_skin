@@ -3,18 +3,10 @@ rm(list = ls()); # clear workspace variables
 cat("\014") # it means ctrl+L. clear window
 
 mypath_1 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/CSV files/test_120420_1.csv"
-mypath_2 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/CSV files/test_120420_2.csv"
-mypath_3 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/CSV files/test_120420_3.csv"
-mypath_4 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/CSV files/test_120420_4.csv"
-
 zmp_locations_exp_1.data <- read.csv(mypath_1)
-zmp_locations_exp_2.data <- read.csv(mypath_2)
-zmp_locations_exp_3.data <- read.csv(mypath_3)
-zmp_locations_exp_4.data <- read.csv(mypath_4)
 
-#X = zeros(1,length(zmp_locations_exp_1.data));
+
 x = replicate(nrow(zmp_locations_exp_1.data), 0)
-
 count <- 1
 
 for (i in 1:nrow(zmp_locations_exp_1.data)) {
@@ -27,13 +19,10 @@ for (i in 1:nrow(zmp_locations_exp_1.data)) {
     
 }
 
-newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4")
+newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")
 colnames(zmp_locations_exp_1.data) <- newheaders
-colnames(zmp_locations_exp_2.data) <- newheaders
-colnames(zmp_locations_exp_3.data) <- newheaders
-colnames(zmp_locations_exp_4.data) <- newheaders
 
-zmp_locations_exp_1.data$label <- c(x)
+#zmp_locations_exp_1.data$label <- c(x)
 
 
 #zmp_locations_exp_1.data$label=label
