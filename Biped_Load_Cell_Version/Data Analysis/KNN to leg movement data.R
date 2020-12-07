@@ -2,19 +2,27 @@
 rm(list = ls()); # clear workspace variables
 cat("\014") # it means ctrl+L. clear window
 
+zmp_posotion <- 1
+flag_distance <- 25
+distance <- 1
+
 mypath_1 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/CSV files/test_120420_1.csv"
 zmp_locations_exp_1.data <- read.csv(mypath_1)
 
 
 x = replicate(nrow(zmp_locations_exp_1.data), 0)
-count <- 1
 
 for (i in 1:nrow(zmp_locations_exp_1.data)) {
-  zmp_locations_exp_1.data[i,5] <- count
-  
-  count<-count+1
-  if (count == 10){
-    count <- 1
+  zmp_locations_exp_1.data[i,5] <- zmp_posotion
+  if(distance == flag_distance){
+    zmp_posotion <- zmp_posotion+1
+    if (zmp_posotion == 10){
+      zmp_posotion <- 1
+    }
+  }
+  distance <- distance+1
+  if (distance == 26){
+    distance <- 1
   }
     
 }
