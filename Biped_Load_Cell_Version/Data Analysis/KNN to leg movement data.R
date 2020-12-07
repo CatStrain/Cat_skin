@@ -12,11 +12,33 @@ zmp_locations_exp_2.data <- read.csv(mypath_2)
 zmp_locations_exp_3.data <- read.csv(mypath_3)
 zmp_locations_exp_4.data <- read.csv(mypath_4)
 
+#X = zeros(1,length(zmp_locations_exp_1.data));
+x = replicate(nrow(zmp_locations_exp_1.data), 0)
+
+count <- 1
+
+for (i in 1:nrow(zmp_locations_exp_1.data)) {
+  zmp_locations_exp_1.data[i,5] <- count
+  
+  count<-count+1
+  if (count == 10){
+    count <- 1
+  }
+    
+}
+
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4")
 colnames(zmp_locations_exp_1.data) <- newheaders
 colnames(zmp_locations_exp_2.data) <- newheaders
 colnames(zmp_locations_exp_3.data) <- newheaders
 colnames(zmp_locations_exp_4.data) <- newheaders
+
+zmp_locations_exp_1.data$label <- c(x)
+
+
+#zmp_locations_exp_1.data$label=label
+
+
 ##################################################################################################
 
 
