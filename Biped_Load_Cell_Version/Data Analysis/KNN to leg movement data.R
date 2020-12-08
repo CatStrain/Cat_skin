@@ -38,6 +38,8 @@ for (i in 1:nrow(zmp_locations_exp_1.data)) {         # Going through all the ro
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")
 colnames(simple_zmp_locations_exp_1.data) <- newheaders
 
+save(simple_zmp_locations_exp_1.data,file="simple_zmp_locations_exp_1.data.Rda")
+
 #zmp_locations_exp_1.data$label <- c(x)
 
 
