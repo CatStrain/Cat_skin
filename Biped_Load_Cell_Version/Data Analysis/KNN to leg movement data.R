@@ -1,6 +1,7 @@
 #KNN to leg movement data
 rm(list = ls()); # clear workspace variables
 cat("\014") # it means ctrl+L. clear window
+library(rgl)
 
 load("simple_zmp_locations_exp_1.Rda")
 load("simple_zmp_locations_exp_2.Rda")
@@ -55,12 +56,24 @@ result$cluster
 #Plot results, use scatter plot
 # 4 attributes, 6 combinations
 par(mfrow=c(2,3), mar=c(5,4,2,2))
-plot(simple_zmp_locations_exp_2.data[c("LC_1","LC_2")], col=result$cluster)# Plot to see how Sepal.Length and Sepal.Width data points have been distributed in clusters
-plot(simple_zmp_locations_exp_2.data[c("LC_3","LC_4")], col=result$cluster)# Plot to see how Petal.Length and Petal.Width data points have been distributed in clusters
+plot(simple_zmp_locations_exp_2.data[c("LC_1","LC_2")], col=result$cluster)# Plot to see how LC_1 and LC_2 data points have been distributed in clusters
+plot(simple_zmp_locations_exp_2.data[c("LC_3","LC_4")], col=result$cluster)
 plot(simple_zmp_locations_exp_2.data[c("LC_1","LC_3")], col=result$cluster)
 plot(simple_zmp_locations_exp_2.data[c("LC_1","LC_4")], col=result$cluster)
 plot(simple_zmp_locations_exp_2.data[c("LC_2","LC_3")], col=result$cluster)
 plot(simple_zmp_locations_exp_2.data[c("LC_2","LC_4")], col=result$cluster)
+
+
+mycolors <- c('royalblue1', 'darkcyan', 'oldlace','brown1','cadetblue1','darkgoldenrod', 'coral1', 'darkgray', 'green1')
+simple_zmp_locations_exp_2.data$color <- mycolors[ as.numeric(result$cluster) ]
+
+par(mar=c(0,0,0,0))
+plot3d( 
+  x=simple_zmp_locations_exp_2.data$`LC_1`, y=simple_zmp_locations_exp_2.data$`LC_2`, z=simple_zmp_locations_exp_2.data$`LC_3`, 
+  col = simple_zmp_locations_exp_2.data$color, 
+  type = 's', 
+  radius = .05,
+  xlab="LC_1", ylab="LC_2", zlab="LC_3")
 
 
 # # Choose the number of clusters k= 1-5
@@ -70,14 +83,14 @@ plot(simple_zmp_locations_exp_2.data[c("LC_2","LC_4")], col=result$cluster)
 # count <-1
 # for (val in k.values) {
 #   result<-kmeans(simple_zmp_locations_exp_2.data,val,iter.max=10,nstart=1)
-#   
+# 
 #   tot.withinss.k[count]<-result$tot.withinss #calculating the within sum of sqrs
 #   count<-count+1
 # }
 # 
 # graphics.off() # close all plots
 # plot(k.values, tot.withinss.k,
-#      type="b", pch = 19, frame = FALSE, 
+#      type="b", pch = 19, frame = FALSE,
 #      xlab="Number of clusters K",
 #      ylab="Total within-clusters sum of squares")
 
