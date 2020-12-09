@@ -47,9 +47,11 @@ head(simple_zmp_locations_exp_2.data) #normalize the values to be within (0-1)
 summary(simple_zmp_locations_exp_2.data)  #Summary of normalized simple_zmp_locations_exp_2.data 
 
 k <- 9 #No. clusters
-result<- kmeans(simple_zmp_locations_exp_2.data,k,iter.max=10,nstart=1)
-str(result) #Compactly Display the Structure of an Arbitrary R Object
+result<- kmeans(simple_zmp_locations_exp_2.data,k,iter.max=5,nstart=1)
 result$size
+mean(result$size)
+sd(result$size)
+str(result) #Compactly Display the Structure of an Arbitrary R Object
 result$centers #4 dimensions
 result$cluster
 
@@ -74,6 +76,9 @@ plot3d(
   type = 's', 
   radius = .05,
   xlab="LC_1", ylab="LC_2", zlab="LC_3")
+
+#Determining how good the clustering performed (comparing predictions to actual labels)
+
 
 
 # # Choose the number of clusters k= 1-5
