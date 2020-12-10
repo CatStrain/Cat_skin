@@ -29,9 +29,11 @@ accuracy(tb)
 
 tb= as.data.frame.matrix(tb)
 ###########################
-rownames(tb)    
+rownames(tb) 
+rownames(tb)[rownames(tb) == "1"] <- "1 target"
 colnames(tb)
-as.matrix(tb)
+colnames(tb)[colnames(tb) == "1"] <- "1 model"
+
 
 normalize <- function(x){
   return ((x-min(x))/(max(x)-min(x)))
@@ -40,6 +42,8 @@ normalize <- function(x){
 for (i in 1:nrow(tb)){
   tb[,c(i)]<-normalize(tb[,c(i)])
 }
+
+#############################3
 for (j in 1:ncol(tb)){
   for (i in 1:nrow(tb)){
     if(tb[i,j]==0){
@@ -47,19 +51,22 @@ for (j in 1:ncol(tb)){
     }
   }
 }
+# 
+# for (i in 1:nrow(tb)){
+#   for (j in 1:ncol(tb)){
+#     if(tb[i,j]==0){
+#       tb[i,j]<-NA
+#     }
+#     tb[,c(i)]<-normalize(tb[,c(i)])
+#   }
+# }
+tb2=tb[order(nrow(tb):1),]
 
-for (i in 1:nrow(tb)){
-  for (j in 1:ncol(tb)){
-    if(tb[i,j]==0){
-      tb[i,j]<-NA
-    }
-    tb[,c(i)]<-normalize(tb[,c(i)])
-  }
-}
+# tb.matrix <- as.matrix(tb)
+# tb.matrix<-Rev(tb.matrix, 1)  
   
-  
-heatmap(as.matrix(tb)
-        ,scale = "column"
+heatmap(as.matrix(tb2)
+        ,scale = "row"
         ,col = rev(heat.colors(256))
         ,main = "Confusion Matrix"
         ,Rowv = NA
