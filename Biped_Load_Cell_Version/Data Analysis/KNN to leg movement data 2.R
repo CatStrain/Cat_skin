@@ -40,6 +40,22 @@ normalize <- function(x){
 for (i in 1:nrow(tb)){
   tb[,c(i)]<-normalize(tb[,c(i)])
 }
+for (j in 1:ncol(tb)){
+  for (i in 1:nrow(tb)){
+    if(tb[i,j]==0){
+      tb[i,j]<-NA
+    }
+  }
+}
+
+for (i in 1:nrow(tb)){
+  for (j in 1:ncol(tb)){
+    if(tb[i,j]==0){
+      tb[i,j]<-NA
+    }
+    tb[,c(i)]<-normalize(tb[,c(i)])
+  }
+}
   
   
 heatmap(as.matrix(tb)
