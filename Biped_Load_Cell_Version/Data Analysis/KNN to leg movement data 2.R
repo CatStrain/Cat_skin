@@ -28,35 +28,30 @@ accuracy <- function(x){sum(diag(x)/(sum(rowSums(x)))) * 100}
 accuracy(tb)
 
 tb= as.data.frame.matrix(tb)
-tb.m= as.matrix(tb)
-TClass <- factor(c(1,2,3,4,5,6,7,8,9))
-PClass <- factor(c(1,2,3,4,5,6,7,8,9))
-#Y      <- c(1, 1, 0, 1,5)
-#kkk <- rep(0,81)
-vector <- rep(0,length(tb)*length(tb))
-#vector
-count <- 1
-for (i in 1:nrow(tb)) {      
-  for (j in 1:ncol(tb)) {
-    vector[count] <- tb[i,j]
-    count <- count+1
-  }
+###########################
+rownames(tb)    
+colnames(tb)
+as.matrix(tb)
+
+normalize <- function(x){
+  return ((x-min(x))/(max(x)-min(x)))
 }
 
-#Y      <- tb
+for (i in 1:nrow(tb)){
+  tb[,c(i)]<-normalize(tb[,c(i)])
+}
+  
+  
+heatmap(as.matrix(tb)
+        ,scale = "column"
+        ,col = rev(heat.colors(256))
+        ,main = "Confusion Matrix"
+        ,Rowv = NA
+        ,Colv = NA
+)
 
-# ############################
-ggplot(data = tb,
-       mapping = aes(x = TClass,
-                     y = PClass))+
-  geom_tile(aes(fill = c(1,2,3,4,44,6,7,8,9)))
-# +
-#   geom_tile(aes(fill = Freq)) +
-#   geom_text(aes(label = sprintf("%1.0f", Freq)), vjust = 1) +
-#   scale_fill_gradient(low = "blue",
-#                       high = "red",
-#                       trans = "log") # if your results aren't quite as clear as the above example
-#####################
+
+#######################
 k.neighbor.values <- c(2,4,6,8,10,12,14,16,18,20) #which is better?
 
 accuracy.k <- rep(0,length(k.neighbor.values))
