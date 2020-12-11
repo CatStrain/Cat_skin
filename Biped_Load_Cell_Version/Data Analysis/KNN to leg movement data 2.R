@@ -1,3 +1,5 @@
+#KNN for leg movement data
+
 rm(list = ls()); # clear workspace variables
 cat("\014") # it means ctrl+L. clear window
 library(rgl)
@@ -5,8 +7,12 @@ library(class)
 library(ggplot2)
 
 load("simple_zmp_locations_exp_2.Rda")
-zmp.class <- simple_zmp_locations_exp_2.data[,c("ZMP_location")] #Actual classes
-simple_zmp_locations_exp_2.data <- simple_zmp_locations_exp_2.data[,c("LC_1","LC_2","LC_3","LC_4")]
+
+#Change this line to analyze different files:
+simple_zmp_locations.data <- simple_zmp_locations_exp_2.data
+
+zmp.class <- simple_zmp_locations.data[,c("ZMP_location")] #Actual classes
+simple_zmp_locations.data <- simple_zmp_locations.data[,c("LC_1","LC_2","LC_3","LC_4")]
 
 zmp.class <- as.data.frame(zmp.class)
 
@@ -15,9 +21,9 @@ rnum<- sample(rep(1:250)) # randomly generate numbers from 1 to 150
 id.training <- rnum[1:200] #Choose training set
 id.test <- rnum[201:250] #Choose test set
 
-zmp.train<- simple_zmp_locations_exp_2.data[id.training,]
+zmp.train<- simple_zmp_locations.data[id.training,]
 zmp.train.target<- zmp.class[id.training,]
-zmp.test<- simple_zmp_locations_exp_2.data[id.test,]
+zmp.test<- simple_zmp_locations.data[id.test,]
 zmp.test.target<- zmp.class[id.test,]
 
 
@@ -87,8 +93,10 @@ for (val in k.neighbor.values) {
   count<-count+1
 }
 
-graphics.off() # close all plots
+#graphics.off() # close all plots
+
 plot(k.neighbor.values, accuracy.k,
      type="b", pch = 19, frame = FALSE, 
      xlab="Number of nearest neighbors K",
      ylab="Model Accuracy")
+
