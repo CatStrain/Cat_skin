@@ -6,7 +6,9 @@ zmp_posotion <- 1
 flag_distance <- 25
 distance <- 1
 
-mypath_1 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/CSV files/test_120420_1.csv"   #CHANGE THIS FOR NEW FILE  (file name)
+#CHANGE Following line to process anothe file  (file name), also lines #2(file name) and #3 (file name) 
+#1 (file name):
+mypath_1 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/CSV files/test_120420_1.csv"   
 zmp_locations.data <- read.csv(mypath_1)
 
 simple_zmp_locations.data <- as.data.frame(matrix(0, ncol = 5, nrow = (nrow(zmp_locations.data)/25)))
@@ -38,8 +40,9 @@ for (i in 1:nrow(zmp_locations.data)) {         # Going through all the rows
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")
 colnames(simple_zmp_locations.data) <- newheaders
 
-
+#2(file name): 
 simple_zmp_locations_exp_1.data <- simple_zmp_locations.data                #CHANGE THIS FOR NEW FILE (data frame name)
+#3 (file name):
 save(simple_zmp_locations_exp_1.data,file="simple_zmp_locations_exp_1.Rda") #CHANGE THIS FOR NEW FILE  (data frame and file name)
 
 
