@@ -106,31 +106,35 @@ plot3d(
 #Knn
 #
 set.seed(99) # required to reproduce the results
-rnum<- sample(rep(1:150)) # randomly generate numbers from 1 to 150
-id.training <- rnum[1:130] #Choose training set
-id.test <- rnum[131:150] #Choose test set
+rnum<- sample(rep(1:250)) # randomly generate numbers from 1 to 150
+id.training <- rnum[1:200] #Choose training set
+id.test <- rnum[201:250] #Choose test set
 
 
 
 #Training & test sets
+#zmp.class<-list(zmp.class)
+
 zmp.train<- simple_zmp_locations_exp_2.data[id.training,]
 zmp.train.target<- zmp.class[id.training]
 zmp.test<- simple_zmp_locations_exp_2.data[id.test,]
 zmp.test.target<- zmp.class[id.test]
 
+zmp.train.target<-as.numeric(zmp.train.target)
+zmp.train.target<-as.numeric(zmp.test.target)
 
 #Use knn function
-#?knn
 #install.packages("class")
+
 library(class)
 
 # Use this line if R cannot find knn (?knn shows nothing)
 #.rs.restartR()
 
 
-model1<- knn(train=zmp.train, test=zmp.test, cl=zmp.train.target, k=16)
+model1<- knn(train=zmp.train, test=zmp.test, cl=zmp.train.target, k=22)
 
-#Model accuracy : create the confucion matrix
+#Model accuracy : create the confusion matrix
 tb <- table(zmp.test.target, model1)
 tb
 accuracy <- function(x){sum(diag(x)/(sum(rowSums(x)))) * 100}
@@ -147,7 +151,7 @@ for (val in k.neighbor.values) {
   tb <- table(zmp.test.target, model1)
   
   accuracy.k[count]<-accuracy(tb)
-  count<-count+1
+  count <- count+1
 }
 
 graphics.off() # close all plots
