@@ -1,4 +1,4 @@
-#KNN to leg movement data
+#K-means for leg movement data
 rm(list = ls()); # clear workspace variables
 cat("\014") # it means ctrl+L. clear window
 library(rgl)
@@ -8,6 +8,7 @@ load("simple_zmp_locations_exp_2.Rda")
 #load("simple_zmp_locations_exp_3.Rda")
 #load("simple_zmp_locations_exp_4.Rda")
 
+#Change this line to analyse different files:
 simple_zmp_locations.data <- simple_zmp_locations_exp_2.data
 
 #View(simple_zmp_locations.data)
