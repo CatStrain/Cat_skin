@@ -19,7 +19,7 @@ s = serial('COM5');
 set(s,'BaudRate',9600);  
 fopen(s);  
  
-wheaston_bridges_lecture = 25000; 
+wheaston_bridges_lecture = 1000; 
 wheaston_bridges = 4;       
 total_batches = wheaston_bridges_lecture/wheaston_bridges;
 
@@ -71,4 +71,4 @@ for wb = 1 : wheaston_bridges
     hold on 
 end
 
-legend('LoadCell 1','2','3','4')
+legend('Elasctic Band 1','2','3','4')
