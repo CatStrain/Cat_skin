@@ -37,10 +37,6 @@ accuracy(tb)
 
 tb= as.matrix(tb)
 ###########################
-rownames(tb) 
-rownames(tb)[rownames(tb) == "1"] <- "1 target"
-colnames(tb)
-colnames(tb)[colnames(tb) == "1"] <- "1 model"
 
 
 normalize <- function(x){
