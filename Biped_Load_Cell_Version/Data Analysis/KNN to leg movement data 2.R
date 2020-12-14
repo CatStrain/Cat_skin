@@ -5,6 +5,8 @@ cat("\014") # it means ctrl+L. clear window
 library(rgl)
 library(class)
 library(ggplot2)
+library("lattice")
+
 
 load("simple_zmp_locations_exp_2.Rda")
 
@@ -33,7 +35,7 @@ tb
 accuracy <- function(x){sum(diag(x)/(sum(rowSums(x)))) * 100}
 accuracy(tb)
 
-tb= as.data.frame.matrix(tb)
+tb= as.matrix(tb)
 ###########################
 rownames(tb) 
 rownames(tb)[rownames(tb) == "1"] <- "1 target"
@@ -49,35 +51,8 @@ for (i in 1:nrow(tb)){
   tb[,c(i)]<-normalize(tb[,c(i)])
 }
 
-#############################3
-for (j in 1:ncol(tb)){
-  for (i in 1:nrow(tb)){
-    if(tb[i,j]==0){
-      tb[i,j]<-NA
-    }
-  }
-}
-# 
-# for (i in 1:nrow(tb)){
-#   for (j in 1:ncol(tb)){
-#     if(tb[i,j]==0){
-#       tb[i,j]<-NA
-#     }
-#     tb[,c(i)]<-normalize(tb[,c(i)])
-#   }
-# }
-tb2=tb[order(nrow(tb):1),]
-
-# tb.matrix <- as.matrix(tb)
-# tb.matrix<-Rev(tb.matrix, 1)  
-  
-heatmap(as.matrix(tb2)
-        ,scale = "row"
-        ,col = rev(heat.colors(256))
-        ,main = "Confusion Matrix"
-        ,Rowv = NA
-        ,Colv = NA
-)
+levelplot( t(tb[c(nrow(tb):1) , ]),
+           col.regions=rev(heat.colors(100)))
 
 
 
