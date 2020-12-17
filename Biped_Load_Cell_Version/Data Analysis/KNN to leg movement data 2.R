@@ -8,10 +8,10 @@ library(ggplot2)
 library("lattice")
 
 
-load("simple_zmp_locations_exp_2.Rda")
+load("test_121420_2_9points_elastic_bands_variable_force.Rda")
 
 #Change this line to analyze different files:
-simple_zmp_locations.data <- simple_zmp_locations_exp_2.data
+simple_zmp_locations.data <- test_121420_2_9points_elastic_bands_variable_force.data
 
 zmp.class <- simple_zmp_locations.data[,c("ZMP_location")] #Actual classes
 simple_zmp_locations.data <- simple_zmp_locations.data[,c("LC_1","LC_2","LC_3","LC_4")]
@@ -29,7 +29,7 @@ zmp.test<- simple_zmp_locations.data[id.test,]
 zmp.test.target<- zmp.class[id.test,]
 
 
-model1<- knn(train=zmp.train, test=zmp.test, cl=zmp.train.target, k=22)
+model1<- knn(train=zmp.train, test=zmp.test, cl=zmp.train.target, k=5)
 tb <- table(zmp.test.target, model1)
 tb
 accuracy <- function(x){sum(diag(x)/(sum(rowSums(x)))) * 100}
