@@ -1,7 +1,7 @@
 number_of_sensors = 4;
 sensor_1_offset = -70;
 sensor_2_offset = 200;
-sensor_3_offset = .8*7;
+sensor_3_offset = -.8*7;
 sensor_4_offset = 240;
 flag_distace = 25;
 %distance = 1;
