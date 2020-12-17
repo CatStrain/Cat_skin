@@ -29,6 +29,7 @@ flags = zeros (1,total_batches);
 flag_distance = 25;
 count = 1;
 flag_num = 1;
+last_flag_num = 4;
 
 for flag = 1: total_batches
     if count == flag_distance
@@ -48,7 +49,7 @@ for data_rows = 1: total_batches
     end
     if flags(data_rows)==1
         %fprintf('Flag')
-        if flag_num == 9
+        if flag_num == last_flag_num
             flag_num = 0;
         end
         flag_num = flag_num +1
@@ -62,7 +63,7 @@ data_2=data_2';
 data_2 = circshift(data_2,1);
 data_2=data_2'
 %...DUM
-writematrix(data_2,'test_120420_5.txt'); 
+writematrix(data_2,'test_121320_3.txt'); 
 
 figure()
 
@@ -71,4 +72,4 @@ for wb = 1 : wheaston_bridges
     hold on 
 end
 
-legend('LoadCell 1','2','3','4')
+legend('Elasctic Band 1','2','3','4')
