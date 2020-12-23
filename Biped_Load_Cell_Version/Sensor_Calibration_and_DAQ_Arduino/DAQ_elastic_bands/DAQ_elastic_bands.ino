@@ -4,8 +4,8 @@
 
 #include <Wire.h>
 #include <Adafruit_ADS1015.h>
-Adafruit_ADS1015 ads1015(0x4A);      //create four amplfiers using different address
-Adafruit_ADS1015 ads1015_2(0x4B);  Adafruit_ADS1015 ads1015_3(0x4A);  Adafruit_ADS1015 ads1015_4(0x4B);
+Adafruit_ADS1015 ads1015(0x48);      //create four amplfiers using different address
+Adafruit_ADS1015 ads1015_2(0x49);  //Adafruit_ADS1015 ads1015_3(0x4A);  Adafruit_ADS1015 ads1015_4(0x4B);
 
 
 void setup() {

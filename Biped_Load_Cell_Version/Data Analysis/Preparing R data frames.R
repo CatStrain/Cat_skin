@@ -9,7 +9,8 @@ distance <- 1
 
 #CHANGE Following line to process another file  (file name), also lines #2(file name) and #3 (file name) 
 #1 (file name):
-mypath_1 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/Backup/ZMP_9points_SpringPlant/test_122120_1_SpringPlant_blackMass.csv"   
+setwd("~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/Backup/ZMP_9points_SpringPlant_RandomF")
+mypath_1 <- "~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/Backup/ZMP_9points_SpringPlant_RandomF/test_122120_4_SpringPlant_blackMass_randomF.csv"   
 zmp_locations.data <- read.csv(mypath_1)
 
 
@@ -44,9 +45,9 @@ newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")
 colnames(simple_zmp_locations.data) <- newheaders
 
 #2(file name): 
-test_122120_1_SpringPlant_blackMass.data <- simple_zmp_locations.data                #CHANGE THIS FOR NEW FILE (data frame name)
+test_122120_4_SpringPlant_blackMass_randomF.data <- simple_zmp_locations.data                #CHANGE THIS FOR NEW FILE (data frame name)
 #3 (file name):
-save(test_122120_1_SpringPlant_blackMass.data,file="test_122120_1_SpringPlant_blackMass.Rda") #CHANGE THIS FOR NEW FILE  (data frame and file name)
+save(test_122120_4_SpringPlant_blackMass_randomF.data,file="test_122120_4_SpringPlant_blackMass_randomF.Rda") #CHANGE THIS FOR NEW FILE  (data frame and file name)
 
 
 ##################################################################################################

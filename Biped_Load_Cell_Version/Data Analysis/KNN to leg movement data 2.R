@@ -7,11 +7,11 @@ library(class)
 library(ggplot2)
 library("lattice")
 
-setwd("~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/Backup/ZMP_9points_SpringPlant")
-load("test_122120_1_SpringPlant_blackMass.Rda")
+setwd("~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/Backup/ZMP_9points_SpringPlant_RandomF")
+load("test_122120_4_SpringPlant_blackMass_randomF.Rda")
 
 #Change this line to analyze different files:
-simple_zmp_locations.data <- test_122120_1_SpringPlant_blackMass.data
+simple_zmp_locations.data <- test_122120_4_SpringPlant_blackMass_randomF.data
 
 zmp.class <- simple_zmp_locations.data[,c("ZMP_location")] #Actual classes
 simple_zmp_locations.data <- simple_zmp_locations.data[,c("LC_1","LC_2","LC_3","LC_4")]
@@ -29,7 +29,7 @@ zmp.test<- simple_zmp_locations.data[id.test,]
 zmp.test.target<- zmp.class[id.test,]
 
 
-model1<- knn(train=zmp.train, test=zmp.test, cl=zmp.train.target, k=4)
+model1<- knn(train=zmp.train, test=zmp.test, cl=zmp.train.target, k=5)
 tb <- table(zmp.test.target, model1)
 tb
 accuracy <- function(x){sum(diag(x)/(sum(rowSums(x)))) * 100}
