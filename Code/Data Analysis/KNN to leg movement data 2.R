@@ -7,11 +7,11 @@ library(class)
 library(ggplot2)
 library("lattice")
 
-
-load("test_121420_2_9points_elastic_bands_variable_force.Rda")
+setwd("~/Github/Cat_skin/Biped_Load_Cell_Version/Data Analysis/Backup/ZMP_9points_SpringPlant_RandomF")
+load("test_122120_4_SpringPlant_blackMass_randomF.Rda")
 
 #Change this line to analyze different files:
-simple_zmp_locations.data <- test_121420_2_9points_elastic_bands_variable_force.data
+simple_zmp_locations.data <- test_122120_4_SpringPlant_blackMass_randomF.data
 
 zmp.class <- simple_zmp_locations.data[,c("ZMP_location")] #Actual classes
 simple_zmp_locations.data <- simple_zmp_locations.data[,c("LC_1","LC_2","LC_3","LC_4")]

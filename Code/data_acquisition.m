@@ -29,7 +29,7 @@ flags = zeros (1,total_batches);
 flag_distance = 25;
 count = 1;
 flag_num = 1;
-last_flag_num = 4;
+last_flag_num = 9;
 
 for flag = 1: total_batches
     if count == flag_distance
@@ -63,7 +63,7 @@ data_2=data_2';
 data_2 = circshift(data_2,1);
 data_2=data_2'
 %...DUM
-writematrix(data_2,'test_121320_3.txt'); 
+writematrix(data_2,'test_122220_6_SpringPlant_ProximalAttachment_randomF.txt'); 
 
 figure()
 
