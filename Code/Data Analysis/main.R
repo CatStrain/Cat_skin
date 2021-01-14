@@ -9,7 +9,7 @@ library("lattice")
 mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/test_121720_2_elasticBands_blackMass_randomF.txt"   
 data.raw <- read.csv(mypath_1)                                                   # Creating data frame from data csv file
 #DOWNSAMPLING DATA:
-zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(data.raw)/(25*9)))          # generating label patterns
+zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(data.raw)/(25*9)))          #  generating label patterns
 data.downsampled = data.raw[seq(12,nrow(data.raw),25),]                          # down sampling data seq.int(from, to, by, length.out, along.with, ...)
 data.downsampled[,5] = zmp_posotions_all[1:250]                                  # selecting labels to fit the data size
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")                   # To Add headers to the downsampled data
