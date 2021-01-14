@@ -29,28 +29,28 @@ void loop() {
   adc0=adc0-1;
   val=(adc0/1.0f)*70.0f;
   Serial.println("Load_cell_1:");
-  Serial.println(val);
+  Serial.println(350+val);
 
   adc1=ads1015.readADC_Differential_2_3(); 
   //val = ((count-1)/count) * val + (1/count)*adc1; 
   adc1=adc1+4;
   val=(adc1/1.0f)*50.0f;
   Serial.println("Load_cell_2:");
-  Serial.println(-val);
+  Serial.println(-300+val);
    
   adc2=ads1015_2.readADC_Differential_0_1(); 
   //val = ((count-1)/count) * val + (1/count)*adc2; 
   adc2=adc2-.8f;
   val=(adc2/1.0f)*70.0f;
   Serial.println("Load_cell_3:");
-  Serial.println(val);
+  Serial.println(280+val);
  
   adc3=ads1015_2.readADC_Differential_2_3();
   //val = ((count-1)/count) * val + (1/count)*adc3;
   adc3=adc3+4.0f; 
   val=(adc3/1.0f)*60.0f;
   Serial.println("Load_cell_4:");
-  Serial.println(-val);
+  Serial.println(-240+val);
   Serial.println("\n");
 
   /**/
