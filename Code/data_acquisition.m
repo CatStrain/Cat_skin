@@ -63,7 +63,7 @@ data_2=data_2';
 data_2 = circshift(data_2,1);
 data_2=data_2'
 %...DUM
-writematrix(data_2,'test_122220_6_SpringPlant_ProximalAttachment_randomF.txt'); 
+writematrix(data_2,'test_122420_11_9points_ElasticBands_RandomF.txt'); 
 
 figure()
 

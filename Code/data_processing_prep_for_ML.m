@@ -9,7 +9,7 @@ zmp_position = 1;
 zmp_position_limit = 9;
 row_l_data = 1;
 
-data = importdata('C:\Users\dario\Documents\Github\Cat_skin\Biped_Load_Cell_Version\Data Analysis\Backup\ZMP_9points_SpringPlant\test_122120_2_SpringPlant_blackMass.txt');
+data = importdata('C:\Users\dario\Documents\Github\Cat_skin\Data\Backup\Data collection_0104\test_0104_10_random_force_skin.txt');
 labeled_and_labeled_data = zeros (floor(size(data,1)/flag_distace), size(data,2)+1);
 %csv_file_name = 'test_121620_1_Loadcells_blackMass' 
 %%
