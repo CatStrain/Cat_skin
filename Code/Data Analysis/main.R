@@ -6,7 +6,7 @@ library(class)
 library(ggplot2)
 library(caret)                # "R package that provides general interface to +- 150 ML alg"
 library("lattice")
-mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/ZMP_9points_ElasticBands(Mat1)_and_Spring_COMBINATION_PLANT/test_0111_800g_lessstiff+black_random_3.txt"   
+mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/ZMP_9points_SkinMat2_BlackMass/constant_force_1_skin.txt"   
 data.raw <- read.csv(mypath_1)                                                   # Creating data frame from data csv file
 #DOWNSAMPLING DATA:
 zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(data.raw)/(25*9)))          #  generating label patterns
@@ -25,21 +25,17 @@ fit <- train(ZMP_location ~ .,
       metric     = "Accuracy",
       data       = data.downsampled)                  # test KNN for K values: 1:20
 print(fit)                                            # print results    
-print(confusionMatrix(fit))
+#print(confusionMatrix(fit))
 levelplot(confusionMatrix(fit)$table)                 # print the confusion matrix
 
-#mean(data.downsampled$LC_1)
-#mean(data.downsampled$LC_2)
-#mean(data.downsampled$LC_3)
-#mean(data.downsampled$LC_4)
 
 min_max_norm <- function(x) {
    (x - min(x)) / (max(x) - min(x))
 }
 
 data.downsampled_norm <- as.data.frame(lapply(data.downsampled[1:4], min_max_norm))
+data.downsampled_norm_sd<-lapply(data.downsampled_norm[1:4], sd)
 
-sd(data.downsampled_norm$LC_1)
-sd(data.downsampled_norm$LC_2)
-sd(data.downsampled_norm$LC_3)
-sd(data.downsampled_norm$LC_4)
+mean_normal_sd<-mean(unlist(data.downsampled_norm_sd))
+mean_normal_sd
+
