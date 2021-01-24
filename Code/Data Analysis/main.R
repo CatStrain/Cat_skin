@@ -6,8 +6,19 @@ library(class)
 library(ggplot2)
 library(caret)                # "R package that provides general interface to +- 150 ML alg"
 library("lattice")
-mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/ZMP_9points_SkinMat2_BlackMass/constant_force_1_skin.txt"   
+mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/ZMP_9points_ElasticBands(Mat1)_and_Spring_COMBINATION_PLANT/test_0111_800g+black_random_2.txt"   
 data.raw <- read.csv(mypath_1)                                                   # Creating data frame from data csv file
+
+########
+
+#setwd("~/Github/Cat_skin/Data/Backup/ZMP_9points_SkinMat2_BlackMass")
+#load("constant_force_2_skin.Rda")
+
+#Change this line to analyze different files:
+#data.raw <-constant_force_2_skin.data
+########
+
+
 #DOWNSAMPLING DATA:
 zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(data.raw)/(25*9)))          #  generating label patterns
 data.downsampled = data.raw[seq(12,nrow(data.raw),25),]                          # down sampling data seq.int(from, to, by, length.out, along.with, ...)
@@ -25,7 +36,7 @@ fit <- train(ZMP_location ~ .,
       metric     = "Accuracy",
       data       = data.downsampled)                  # test KNN for K values: 1:20
 print(fit)                                            # print results    
-#print(confusionMatrix(fit))
+print(confusionMatrix(fit))
 levelplot(confusionMatrix(fit)$table)                 # print the confusion matrix
 
 
