@@ -11,12 +11,21 @@ mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_fi
 prebiped_data.raw <- read.csv(mypath_1)                                                   # Creating prebiped_data frame from prebiped_data csv file
 
 mypath_2 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/CoP_plate_2_postbiped_provitional.txt"   
-postbiped_data.raw <- read.csv(mypath_1)                                                   # Creating prebiped_data frame from prebiped_data csv file
+postbiped_data.raw <- read.csv(mypath_2)                                                   # Creating prebiped_data frame from prebiped_data csv file
 
+mypath_3 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/left_foot_skin.txt" 
+leftleg_data.raw <- read.csv(mypath_3)
+
+mypath_4 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/right_foot_skin.txt" 
+rightleg_data.raw <- read.csv(mypath_4)
+
+biped_data <- leftleg_data.raw[,c(1,2,3,4)]
+biped_data[,c(5,6,7,8)] <- rightleg_data.raw[,c(1,2,3,4)]
 
 ########
 
 #DOWNSAMPLING prebiped_data:
+
 zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(prebiped_data.raw)/(25*9)))          #  generating label patterns
 prebiped_data.downsampled = prebiped_data.raw[seq(12,nrow(prebiped_data.raw),25),]                          # down sampling prebiped_data seq.int(from, to, by, length.out, along.with, ...)
 prebiped_data.downsampled[,5] = zmp_posotions_all[1:250]                                  # selecting labels to fit the prebiped_data size
