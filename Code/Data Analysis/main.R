@@ -6,8 +6,19 @@ library(class)
 library(ggplot2)
 library(caret)                # "R package that provides general interface to +- 150 ML alg"
 library("lattice")
-mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/test_121720_2_elasticBands_blackMass_randomF.txt"   
+mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/ZMP_9points_SkinMat2_BlackMass/constant_force_2_skin.txt"   
 data.raw <- read.csv(mypath_1)                                                   # Creating data frame from data csv file
+
+########
+
+#setwd("~/Github/Cat_skin/Data/Backup/ZMP_9points_SkinMat2_BlackMass")
+#load("constant_force_2_skin.Rda")
+
+#Change this line to analyze different files:
+#data.raw <-constant_force_2_skin.data
+########
+
+
 #DOWNSAMPLING DATA:
 zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(data.raw)/(25*9)))          #  generating label patterns
 data.downsampled = data.raw[seq(12,nrow(data.raw),25),]                          # down sampling data seq.int(from, to, by, length.out, along.with, ...)
@@ -27,3 +38,15 @@ fit <- train(ZMP_location ~ .,
 print(fit)                                            # print results    
 print(confusionMatrix(fit))
 levelplot(confusionMatrix(fit)$table)                 # print the confusion matrix
+
+
+min_max_norm <- function(x) {
+   (x - min(x)) / (max(x) - min(x))
+}
+
+data.downsampled_norm <- as.data.frame(lapply(data.downsampled[1:4], min_max_norm))
+data.downsampled_norm_sd<-lapply(data.downsampled_norm[1:4], sd)
+
+mean_normal_sd<-mean(unlist(data.downsampled_norm_sd))
+mean_normal_sd
+
