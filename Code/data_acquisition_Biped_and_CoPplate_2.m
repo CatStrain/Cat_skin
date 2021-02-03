@@ -8,24 +8,29 @@
 %%
 clear all;
 clc;
-%%
-s_1 = serial('COM3','baudrate',9600);
-s_2 = serial('COM5','baudrate',9600);
-
-%Biped
-try
-    fopen(s_1);
-catch err
-    fclose(instrfind);
-    error('Make sure you select the correct COM3 Port where the Arduino is connected.');
-end
-%CoP Plate
-try
-    fopen(s_2);
-catch err
-    fclose(instrfind);
-    error('Make sure you select the correct COM5 Port where the Arduino is connected.');
-end
+%% For testing purposes
+% file_name='test_0106_constant_2';                  % the data file name
+% data = importdata(strcat(file_name,'.txt'));
+% file_name='test_0106_constant_2';                  % the data file name
+% data_2 = importdata(strcat(file_name,'.txt'));
+%% Connecting with Arduinos
+% s_1 = serial('COM3','baudrate',9600);
+% s_2 = serial('COM5','baudrate',9600);
+% 
+% %Biped
+% try
+%     fopen(s_1);
+% catch err
+%     fclose(instrfind);
+%     error('Make sure you select the correct COM3 Port where the Arduino is connected.');
+% end
+% %CoP Plate
+% try
+%     fopen(s_2);
+% catch err
+%     fclose(instrfind);
+%     error('Make sure you select the correct COM5 Port where the Arduino is connected.');
+% end
 
 %% old:
 % try                     %this is used to close the remaining portal and files
@@ -68,13 +73,15 @@ end
 fprintf ('data colection started')
 for data_line = 1: lecture_line
     for data_column = 1:number_of_leg_sensors
-        
+        %% Reading from Arduino 1
         b = str2double(fgetl(s_1));              %read line from port 1 (Biped)
         if b                                     %if there is a line
             data_biped(data_line,data_column) = b;
             read_CoP_plate = read_CoP_plate+1;
         end
+        %% Reading from File 1
         
+        %% Reading from Arduino 2
         if read_CoP_plate == 2
             c = str2double(fgetl(s_2));              %read line from port 2 (Plate)
             if c                                     %if there is a line
@@ -82,6 +89,8 @@ for data_line = 1: lecture_line
             end
             read_CoP_plate = 0;
         end
+        %% Reading from File 2
+        
     end
     %Only required for training the Plate.
     if batch_line_array(data_line)==1                  %there are 25 lines per batch, only enter this when value of a line is 1
