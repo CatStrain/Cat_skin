@@ -6,69 +6,85 @@
 %strain gauges, and data from each strain gauge is separated by a comma. 
 
 %%
-try                     %this is used to close the remaining portal and files
-    fclose(s);          
-    %fclose(fileID);
-end
-%%
 clear all;
-clc;  % clear all variables
+clc;
 %%
-
-s = serial('COM5');  
-set(s,'BaudRate',9600);  
-fopen(s);  
- 
-wheaston_bridges_lecture = 25000; 
-wheaston_bridges = 4;       
-total_batches = wheaston_bridges_lecture/wheaston_bridges;
+s_1=serial('COM3','baudrate',9600);
 
 
-data_2 = zeros (total_batches,wheaston_bridges);
-flags = zeros (1,total_batches);
-flag_distance = 25;
-count = 1;
-flag_num = 1;
-last_flag_num = 9;
+%Biped
+try
+    fopen(s_1);
+catch err
+    fclose(instrfind);
+    error('Make sure you select the correct COM3 Port where the Arduino is connected.');
+end
 
-for flag = 1: total_batches
-    if count == flag_distance
-        count = 0;
-        flags(flag)=1 ;
+%% old:
+% try                     %this is used to close the remaining portal and files
+%     fclose(s_1);          
+%     fclose(s_2); 
+% end
+%%%
+% clear all;
+% clc;  % clear all variables
+%%%
+% 
+% s_1 = serial('COM5');  
+% set(s_1,'BaudRate',9600);  
+% fopen(s_1);  
+
+%%
+sensor_lecture = 25000; 
+number_of_sensors = 8;       
+lecture_line = sensor_lecture/number_of_sensors;
+
+
+data_biped = zeros (lecture_line,number_of_sensors);
+batch_line_array = zeros (1,lecture_line);
+batch_size = 25;
+batch_line = 1;
+CoP_cue = 1;
+biggest_CoP_value = 9;
+
+for i = 1: lecture_line
+    if batch_line == batch_size
+        batch_line = 0;
+        batch_line_array(i)=1 ;
     end   
-    count = count + 1;
+    batch_line = batch_line + 1;
 end
 
 fprintf ('data colection started')
-for data_rows = 1: total_batches
-    for wb = 1:wheaston_bridges
-        b = str2num(fgetl(s));              %read line from file
+for data_line = 1: lecture_line
+    for data_column = 1:number_of_sensors
+        b = str2double(fgetl(s_1));              %read line from file
         if b                                %if there is a line
-            data_2(data_rows,wb) = b;
+            data_biped(data_line,data_column) = b;
         end
     end
-    if flags(data_rows)==1
+    if batch_line_array(data_line)==1                  %there are 25 lines per batch, only enter this when value of a line is 1
         %fprintf('Flag')
-        if flag_num == last_flag_num
-            flag_num = 0;
+        if CoP_cue == biggest_CoP_value
+            CoP_cue = 0;                   %
         end
-        flag_num = flag_num +1
+        CoP_cue = CoP_cue +1
         
     end
 end
 %data_2 = circshift(data_2,5)';
 %data_2
 %DUM...
-data_2=data_2';
-data_2 = circshift(data_2,1);
-data_2=data_2'
+data_biped=data_biped';
+data_biped = circshift(data_biped,1);
+data_biped=data_biped'
 %...DUM
-writematrix(data_2,'test_122220_6_SpringPlant_ProximalAttachment_randomF.txt'); 
+writematrix(data_biped,'test_122220_6_SpringPlant_ProximalAttachment_randomF.txt'); 
 
 figure()
 
-for wb = 1 : wheaston_bridges
-    plot(data_2(:,wb));
+for data_column = 1 : number_of_sensors
+    plot(data_biped(:,data_column));
     hold on 
 end
 

@@ -46,6 +46,7 @@ clc;
 % set(s_1,'BaudRate',9600);  
 % fopen(s_1);  
 
+
 %%
 sensor_lecture = 25000; 
 number_of_leg_sensors = 8;  
