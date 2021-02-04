@@ -26,11 +26,31 @@ biped_data[,c(5,6,7,8)] <- rightleg_data.raw[,c(1,2,3,4)]
 
 #DOWNSAMPLING prebiped_data:
 
-zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(prebiped_data.raw)/(25*9)))          #  generating label patterns
-prebiped_data.downsampled = prebiped_data.raw[seq(12,nrow(prebiped_data.raw),25),]                          # down sampling prebiped_data seq.int(from, to, by, length.out, along.with, ...)
-prebiped_data.downsampled[,5] = zmp_posotions_all[1:250]                                  # selecting labels to fit the prebiped_data size
+downsample_with_labels <- function(x){                                                 #downsampling funtion
+   zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(x)/(25*9)))          #  generating label patterns
+   data.downsampled = x[seq(12,nrow(x),25),]                          # down sampling prebiped_data seq.int(from, to, by, length.out, along.with, ...)
+   data.downsampled[,5] = zmp_posotions_all[1:250]                                  # selecting labels to fit the prebiped_data size
+   return (data.downsampled)
+}
+
+downsample_no_labels <- function(x){                                                 #downsampling funtion
+   data.downsampled = x[seq(12,nrow(x),25),]                          # down sampling prebiped_data seq.int(from, to, by, length.out, along.with, ...)
+   return (data.downsampled)
+}
+
+prebiped_data.raw <- downsample_with_labels(prebiped_data.raw)
+
+
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")                   # To Add headers to the downsampled prebiped_data
 colnames(prebiped_data.downsampled) <- newheaders
+
+
+
+# zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(prebiped_data.raw)/(25*9)))          #  generating label patterns
+# prebiped_data.downsampled = prebiped_data.raw[seq(12,nrow(prebiped_data.raw),25),]                          # down sampling prebiped_data seq.int(from, to, by, length.out, along.with, ...)
+# prebiped_data.downsampled[,5] = zmp_posotions_all[1:250]                                  # selecting labels to fit the prebiped_data size
+# newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")                   # To Add headers to the downsampled prebiped_data
+# colnames(prebiped_data.downsampled) <- newheaders
 # KNN
 #
 
