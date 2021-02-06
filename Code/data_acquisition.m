@@ -6,10 +6,15 @@
 %strain gauges, and data from each strain gauge is separated by a comma. 
 
 %%
+try                     %this is used to close the remaining portal and files
+    fclose(s);          
+    %fclose(fileID);
+end
+
 clear all;
 clc;
 %%
-s_1=serial('COM3','baudrate',9600);
+s_1=serial('COM6','baudrate',9600);
 
 
 %Biped
@@ -17,7 +22,7 @@ try
     fopen(s_1);
 catch err
     fclose(instrfind);
-    error('Make sure you select the correct COM3 Port where the Arduino is connected.');
+    error('Make sure you select the correct COM6 Port where the Arduino is connected.');
 end
 
 %% old:
@@ -36,9 +41,8 @@ end
 
 %%
 sensor_lecture = 25000; 
-number_of_sensors = 8;       
+number_of_sensors = 4;       
 lecture_line = sensor_lecture/number_of_sensors;
-
 
 data_biped = zeros (lecture_line,number_of_sensors);
 batch_line_array = zeros (1,lecture_line);
@@ -47,15 +51,16 @@ batch_line = 1;
 CoP_cue = 1;
 biggest_CoP_value = 9;
 
-for i = 1: lecture_line
+for i = 1: lecture_line             %to show flags every 25 lines of data file reading (one barch, 25 lines)
     if batch_line == batch_size
         batch_line = 0;
         batch_line_array(i)=1 ;
     end   
     batch_line = batch_line + 1;
 end
-
+%%
 fprintf ('data colection started')
+record_start_time = clock;
 for data_line = 1: lecture_line
     for data_column = 1:number_of_sensors
         b = str2double(fgetl(s_1));              %read line from file
@@ -64,22 +69,21 @@ for data_line = 1: lecture_line
         end
     end
     if batch_line_array(data_line)==1                  %there are 25 lines per batch, only enter this when value of a line is 1
-        %fprintf('Flag')
         if CoP_cue == biggest_CoP_value
             CoP_cue = 0;                   %
         end
-        CoP_cue = CoP_cue +1
-        
+        CoP_cue = CoP_cue +1        
     end
 end
-%data_2 = circshift(data_2,5)';
-%data_2
-%DUM...
+record_end_time = clock;
+
 data_biped=data_biped';
 data_biped = circshift(data_biped,1);
-data_biped=data_biped'
-%...DUM
-writematrix(data_biped,'test_122220_6_SpringPlant_ProximalAttachment_randomF.txt'); 
+data_biped=data_biped';
+
+data_biped_with_time = [record_start_time(3:6);data_biped;record_end_time(3:6)];
+
+writematrix(data_biped_with_time,'january_2021_2.txt'); 
 
 figure()
 
