@@ -2,9 +2,12 @@
 
 This repository contains the code to calculate the Center of Pressure (CoP) of a biped based on skin strain signals. The included code: 
 
-  - Data acqusitions (Record data from strain gauges on a skin using C++ and MATLAB code) (GitHub: [DAQ])
+  - Data acqusitions (GitHub: [DAQ])
+  
         -Record data from strain gauges on a skin using C++ and MATLAB code
+        
   - Data Analysis (GitHub: [DAnalysis])
+  
         -K-Nearest-Neighbor (KNN) approach to train and test the biped's CoP preciction accuracy
         -5-Fold Cross-Validation to assess the validity of our estimator 
 
