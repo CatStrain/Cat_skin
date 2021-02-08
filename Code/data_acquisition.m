@@ -51,6 +51,8 @@ batch_line = 1;
 CoP_cue = 1;
 biggest_CoP_value = 9;
 
+transition_waiting_time = 3;        %To have control over the batch transition time, specially to coordinate two DAQ instances 
+
 for i = 1: lecture_line             %to show flags every 25 lines of data file reading (one barch, 25 lines)
     if batch_line == batch_size
         batch_line = 0;
@@ -59,8 +61,10 @@ for i = 1: lecture_line             %to show flags every 25 lines of data file r
     batch_line = batch_line + 1;
 end
 %%
+
 fprintf ('data colection started')
 record_start_time = clock;
+batch_record_start_time = clock;
 for data_line = 1: lecture_line
     for data_column = 1:number_of_sensors
         b = str2double(fgetl(s_1));              %read line from file
@@ -72,6 +76,12 @@ for data_line = 1: lecture_line
         if CoP_cue == biggest_CoP_value
             CoP_cue = 0;                   %
         end
+        while (a < transition_waiting_time)         %This loop won't allow the code to continue until the transition_waiting_time condition is met
+            referece_clock = clock;
+            a = (referece_clock(5)*60 + referece_clock(6)) - (batch_record_start_time(5)*60 + batch_record_start_time(6));
+            %fprintf("waiting for the difference to be bigger than 60...\n") 
+        end
+        batch_record_start_time = clock;
         CoP_cue = CoP_cue +1        
     end
 end
