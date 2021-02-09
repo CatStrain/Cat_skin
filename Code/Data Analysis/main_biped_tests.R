@@ -22,11 +22,11 @@ leftleg_data.raw <- read.csv(mypath_3)
 mypath_4 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/right_foot_skin.txt" 
 rightleg_data.raw <- read.csv(mypath_4)
 
-biped_data <- leftleg_data.raw[,c(1,2,3,4)]
+#biped_data <- leftleg_data.raw[,c(1,2,3,4)]
 
 
 ########
-#DOWNSAMPLING prebiped_data:
+#DOWNSAMPLING data:
 #########
 
 downsample_with_labels <- function(x){                                           # downsampling funtion
@@ -62,6 +62,10 @@ leftleg_data.raw[,5:8] = data.frame(rightleg_data.raw$SL_5,rightleg_data.raw$SL_
 #leftleg_data.raw[,6] = data.frame(rightleg_data.raw$SL_6)
 #leftleg_data.raw[,7] = data.frame(rightleg_data.raw$SL_7)
 #leftleg_data.raw[,8] = data.frame(rightleg_data.raw$SL_8)
+
+biped_data <- leftleg_data.raw
+newheaders <- c("SL_1", "SL_2", "SL_3", "SL_4","SL_5", "SL_6", "SL_7", "SL_8")
+colnames(biped_data) <- newheaders
 
 # KNN
 
@@ -114,7 +118,11 @@ test_pred <- predict(fit, newdata = postbiped_data.raw)                         
 test_pred
 print(test_pred)
 #########
-leftleg_data.raw
+
+biped_data[,9] =  test_pred                                                      # adding labels to biped data
+
+
+#leftleg_data.raw
 
 
 # min_max_norm <- function(x) {
