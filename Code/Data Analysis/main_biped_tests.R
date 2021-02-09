@@ -7,8 +7,9 @@ library(ggplot2)
 library(caret)                # "R package that provides general interface to +- 150 ML alg"
 library("lattice")
 
-#RAW files:
+
 ####### 
+# loading RAW files:
 
 mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/CoP_plate_1_prebiped_provitional.txt"   
 prebiped_data.raw <- read.csv(mypath_1)                                                   # Creating prebiped_data frame from prebiped_data csv file
@@ -22,12 +23,8 @@ leftleg_data.raw <- read.csv(mypath_3)
 mypath_4 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/right_foot_skin.txt" 
 rightleg_data.raw <- read.csv(mypath_4)
 
-#biped_data <- leftleg_data.raw[,c(1,2,3,4)]
-
-
 ########
-#DOWNSAMPLING data:
-#########
+#DOWNSAMPLING data, and adding column names
 
 downsample_with_labels <- function(x){                                           # downsampling funtion
    zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(x)/(25*9)))              # generating label patterns
@@ -67,9 +64,8 @@ biped_data <- leftleg_data.raw
 newheaders <- c("SL_1", "SL_2", "SL_3", "SL_4","SL_5", "SL_6", "SL_7", "SL_8")
 colnames(biped_data) <- newheaders
 
-# KNN
-
 #######
+# Old code
 # 
 # zmp.class <- prebiped_data.downsampled[,c("ZMP_location")]                              # Actual classes ZMP locations
 # zmp_features <- prebiped_data.downsampled[,c("LC_1","LC_2","LC_3","LC_4")] # Data without class
@@ -98,8 +94,7 @@ colnames(biped_data) <- newheaders
 # tb= as.matrix(tb)
 #
 ######
-# Training force plate:
-########
+# Training force plate (with KNN):
 set.seed(99)                                                                     # required to reproduce the results
 prebiped_data.raw['ZMP_location'] = factor(prebiped_data.raw[,'ZMP_location'])
 trControl <- trainControl(method  = "cv", number  = 5)                           # 5 fold Cross-Validation
@@ -112,14 +107,31 @@ fit <- train(ZMP_location ~ .,
 print(fit)                                                                       # print results
 print(confusionMatrix(fit))
 levelplot(confusionMatrix(fit)$table)                                            # show the confusion matrix
-#########
-######### Using force plate as ground truth for the incoming biped data
-test_pred <- predict(fit, newdata = postbiped_data.raw)                          #Labels for biped sensory data (GROUND TRUTH)
-test_pred
-print(test_pred)
-#########
 
+######### 
+#Using force plate as ground truth for the incoming biped data
+test_pred <- predict(fit, newdata = postbiped_data.raw)                          #Labels for biped sensory data (GROUND TRUTH)
+#test_pred
+print(test_pred)
 biped_data[,9] =  test_pred                                                      # adding labels to biped data
+newheaders <- c("SL_1", "SL_2", "SL_3", "SL_4","SL_5", "SL_6", "SL_7", "SL_8","ZMP_location")
+colnames(biped_data) <- newheaders
+
+#########
+# Training and testing biped
+
+set.seed(99)                                                                     # required to reproduce the results
+biped_data['ZMP_location'] = factor(biped_data[,'ZMP_location'])
+trControl <- trainControl(method  = "cv", number  = 5)                           # 5 fold Cross-Validation
+fit <- train(ZMP_location ~ .,
+             method     = "knn",
+             tuneGrid   = expand.grid(k = 1:20),
+             trControl  = trControl,
+             metric     = "Accuracy",
+             data       = biped_data)                                            # test KNN for K values: 1:20
+print(fit)                                                                       # print results
+print(confusionMatrix(fit))
+levelplot(confusionMatrix(fit)$table) 
 
 
 #leftleg_data.raw
