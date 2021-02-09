@@ -64,35 +64,6 @@ biped_data <- leftleg_data.raw
 newheaders <- c("SL_1", "SL_2", "SL_3", "SL_4","SL_5", "SL_6", "SL_7", "SL_8")
 colnames(biped_data) <- newheaders
 
-#######
-# Old code
-# 
-# zmp.class <- prebiped_data.downsampled[,c("ZMP_location")]                              # Actual classes ZMP locations
-# zmp_features <- prebiped_data.downsampled[,c("LC_1","LC_2","LC_3","LC_4")] # Data without class
-# 
-# zmp.class <- as.data.frame(zmp.class)
-# 
-# set.seed(99)                  # required to reproduce the results
-# rnum<- sample(rep(1:250))     # randomly generate numbers from 1 to 250
-# id.training <- rnum[1:200]    #Choose training set
-# id.test <- rnum[201:250]      #Choose test set
-# 
-# #Select data rows depending on the previously randomly generated arrays:
-# 
-# zmp.train <- prebiped_data.downsampled[id.training,]
-# zmp.train.target <- zmp.class[id.training,]
-# zmp.test <- prebiped_data.downsampled[id.test,]
-# zmp.test.target <- zmp.class[id.test,]
-# 
-# ###
-# model1<- knn(train=zmp.train, test=zmp.test, cl=zmp.train.target, k=3)     #Running KNN
-# tb <- table(zmp.test.target, model1)                                        #confusion matrix (only numbers)
-# tb                                                                          #display confusion matrix
-# accuracy <- function(x){sum(diag(x)/(sum(rowSums(x)))) * 100}               #Prediction accuracy
-# accuracy(tb)
-# 
-# tb= as.matrix(tb)
-#
 ######
 # Training force plate (with KNN):
 set.seed(99)                                                                     # required to reproduce the results
@@ -132,9 +103,6 @@ fit <- train(ZMP_location ~ .,
 print(fit)                                                                       # print results
 print(confusionMatrix(fit))
 levelplot(confusionMatrix(fit)$table) 
-
-
-#leftleg_data.raw
 
 
 # min_max_norm <- function(x) {
