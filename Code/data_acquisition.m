@@ -49,7 +49,7 @@ end
 
 fprintf ('data colection started')
 record_start_time = clock;
-batch_record_start_time = clock;
+%batch_record_start_time = clock;
 for data_line = 1: lecture_line
     for data_column = 1:number_of_sensors
         b = str2double(fgetl(s_1));              %read line from file
@@ -62,12 +62,12 @@ for data_line = 1: lecture_line
         if CoP_cue == biggest_CoP_value
             CoP_cue = 0;                   %
         end
-        while (waith_time < transition_waiting_time)         %This loop won't allow the code to continue until the transition_waiting_time condition is met
-            referece_clock = clock;
-            waith_time = (referece_clock(5)*60 + referece_clock(6)) - (batch_record_start_time(5)*60 + batch_record_start_time(6));
-            %fprintf("waiting for the difference to be bigger than 60...\n") 
-        end
-        batch_record_start_time = clock;
+%         while (waith_time < transition_waiting_time)         %This loop won't allow the code to continue until the transition_waiting_time condition is met
+%             referece_clock = clock;
+%             waith_time = (referece_clock(5)*60 + referece_clock(6)) - (batch_record_start_time(5)*60 + batch_record_start_time(6));
+%             %fprintf("waiting for the difference to be bigger than 60...\n") 
+%         end
+%         batch_record_start_time = clock;
         CoP_cue = CoP_cue +1        
     end
 end
@@ -80,7 +80,7 @@ data_biped=data_biped';
 
 data_biped_with_time = [record_start_time(3:6);data_biped;record_end_time(3:6)];
 
-writematrix(data_biped_with_time,'january_2021_2.txt'); 
+writematrix(data_biped_with_time,'testing_biped_1_021021.txt'); 
 
 figure()
 
