@@ -26,27 +26,32 @@ void loop() {
   
   adc0 = ads1015.readADC_Differential_0_1();                  //read difference between 0 and 1 input on first amplifier
   //val = ((count-1)/count) * val + (1/count)*adc0;           // to get average reading value when no load
-  adc0=adc0-1;
-  val=(adc0/1.0f)*70.0f;
-  Serial.println(val);
+  //adc0=adc0-1;
+  //val=(adc0/1.0f)*70.0f;
+  //Serial.println(val);
+  Serial.println(adc0);
+  
 
   adc1=ads1015.readADC_Differential_2_3(); 
   //val = ((count-1)/count) * val + (1/count)*adc1; 
-  adc1=adc1+4;
-  val=(adc1/1.0f)*50.0f;
-  Serial.println(-val);
+  //adc1=adc1+4;
+  //val=(adc1/1.0f)*50.0f;
+  //Serial.println(-val);
+  Serial.println(adc1);
    
   adc2=ads1015_2.readADC_Differential_0_1(); 
   //val = ((count-1)/count) * val + (1/count)*adc2; 
-  adc2=adc2-.8f;
-  val=(adc2/1.0f)*70.0f;
-  Serial.println(val);
+  //adc2=adc2-.8f;
+  //val=(adc2/1.0f)*70.0f;
+  //Serial.println(val);
+  Serial.println(adc2);
  
   adc3=ads1015_2.readADC_Differential_2_3();
   //val = ((count-1)/count) * val + (1/count)*adc3;
-  adc3=adc3+4.0f; 
-  val=(adc3/1.0f)*60.0f;
-  Serial.println(-val);
+  //adc3=adc3+4.0f; 
+  //val=(adc3/1.0f)*60.0f;
+  //Serial.println(-val);
+  Serial.println(adc3);
   /**/
   delay(100);
 
