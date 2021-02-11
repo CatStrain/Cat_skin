@@ -46,8 +46,11 @@ for i = 1: lecture_line             %to show flags every 25 lines of data file r
     batch_line = batch_line + 1;
 end
 %%
+% prompt = 'Press any key to continue...';
+% x = input(prompt)
 
 fprintf ('data colection started')
+
 record_start_time = clock;
 %batch_record_start_time = clock;
 for data_line = 1: lecture_line
@@ -80,7 +83,7 @@ data_biped=data_biped';
 
 data_biped_with_time = [record_start_time(3:6);data_biped;record_end_time(3:6)];
 
-writematrix(data_biped_with_time,'testing_biped_1_021021.txt'); 
+writematrix(data_biped_with_time,'initial_force_plate_data_1_021021.txt'); 
 
 figure()
 
