@@ -38,9 +38,9 @@ downsample_no_labels <- function(x){                                            
    return (data.downsampled)
 }
 
-normalize <- function(x){
-   return ((x-min(x))/(max(x)-min(x)))
-}
+#normalize <- function(x){
+#   return ((x-min(x))/(max(x)-min(x)))
+#}
 
 prebiped_data.raw <- downsample_with_labels(prebiped_data.raw)                   #Downsampling with labels for Force Plate Data
 postbiped_data.raw <- downsample_no_labels(postbiped_data.raw)                   #Downsampling with no labels for using as grounth truth provided by Force Plate 
@@ -51,32 +51,42 @@ leftleg_data.raw <- downsample_no_labels(leftleg_data.raw)                      
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")                   # 
 colnames(prebiped_data.raw) <- newheaders
 
-prebiped_data.raw$LC_1 <- normalize(prebiped_data.raw$LC_1)
-prebiped_data.raw$LC_2 <- normalize(prebiped_data.raw$LC_2)
-prebiped_data.raw$LC_3 <- normalize(prebiped_data.raw$LC_3)
-prebiped_data.raw$LC_4 <- normalize(prebiped_data.raw$LC_4)
+
+trans_1 <- preProcess(prebiped_data.raw, method = c("range"))
+prebiped_data.raw = predict(trans_1, prebiped_data.raw[,1:5])
+
+#prebiped_data.raw$LC_1 <- normalize(prebiped_data.raw$LC_1)
+#prebiped_data.raw$LC_2 <- normalize(prebiped_data.raw$LC_2)
+#prebiped_data.raw$LC_3 <- normalize(prebiped_data.raw$LC_3)
+#prebiped_data.raw$LC_4 <- normalize(prebiped_data.raw$LC_4)
 
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4")                                  # 
 colnames(postbiped_data.raw) <- newheaders
 
-postbiped_data.raw$LC_1 <- normalize(postbiped_data.raw$LC_1)
-postbiped_data.raw$LC_2 <- normalize(postbiped_data.raw$LC_2)
-postbiped_data.raw$LC_3 <- normalize(postbiped_data.raw$LC_3)
-postbiped_data.raw$LC_4 <- normalize(postbiped_data.raw$LC_4)
+trans_2 <- preProcess(postbiped_data.raw, method = c("range"))
+postbiped_data.raw = predict(trans_2, postbiped_data.raw[,1:4])
+
+#postbiped_data.raw$LC_1 <- normalize(postbiped_data.raw$LC_1)
+#postbiped_data.raw$LC_2 <- normalize(postbiped_data.raw$LC_2)
+#postbiped_data.raw$LC_3 <- normalize(postbiped_data.raw$LC_3)
+#postbiped_data.raw$LC_4 <- normalize(postbiped_data.raw$LC_4)
 
 
 biped_data <- leftleg_data.raw
 newheaders <- c("SL_1", "SL_2", "SL_3", "SL_4","SL_5", "SL_6", "SL_7", "SL_8")
 colnames(biped_data) <- newheaders
 
-biped_data$SL_1 <- normalize(biped_data$SL_1)
-biped_data$SL_2 <- normalize(biped_data$SL_2)
-biped_data$SL_3 <- normalize(biped_data$SL_3)
-biped_data$SL_4 <- normalize(biped_data$SL_4)
-biped_data$SL_5 <- normalize(biped_data$SL_5)
-biped_data$SL_6 <- normalize(biped_data$SL_6)
-biped_data$SL_7 <- normalize(biped_data$SL_7)
-biped_data$SL_8 <- normalize(biped_data$SL_8)
+trans_3 <- preProcess(biped_data, method = c("range"))
+biped_data = predict(trans_3, biped_data[,1:8])
+
+#biped_data$SL_1 <- normalize(biped_data$SL_1)
+#biped_data$SL_2 <- normalize(biped_data$SL_2)
+#biped_data$SL_3 <- normalize(biped_data$SL_3)
+#biped_data$SL_4 <- normalize(biped_data$SL_4)
+#biped_data$SL_5 <- normalize(biped_data$SL_5)
+#biped_data$SL_6 <- normalize(biped_data$SL_6)
+#biped_data$SL_7 <- normalize(biped_data$SL_7)
+#biped_data$SL_8 <- normalize(biped_data$SL_8)
 
 
 ######
