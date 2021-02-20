@@ -6,7 +6,7 @@ library(class)
 library(ggplot2)
 library(caret)                # "R package that provides general interface to +- 150 ML alg"
 library("lattice")
-mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/ZMP_9points_SkinMat2_BlackMass/constant_force_2_skin.txt"   
+mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/ZMP_9points_ElasticBands_Redced_Size_Bridge/test_0104_8_constant_force_skin.txt"   
 data.raw <- read.csv(mypath_1)                                                   # Creating data frame from data csv file
 
 ########

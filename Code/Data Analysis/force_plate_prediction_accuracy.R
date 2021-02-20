@@ -15,7 +15,7 @@ incorrect_predictions = 0;
 ####### 
 # loading RAW files:
 
-mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/CoP_plate_1_prebiped_provitional.txt"   
+mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/Biped/initial_force_plate_data_4_021021.txt"   
 initial_force_plate <- read.csv(mypath_1)                                                   # Creating prebiped_data frame from prebiped_data csv file
 
 mypath_2 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/CoP_plate_2_postbiped_provitional.txt"   
@@ -36,7 +36,7 @@ downsample_no_labels <- function(x){                                            
   return (data.downsampled)
 }
 
-initial_force_plate <- downsample_with_labels(initial_force_plate)                   #Downsampling with labels for Force Plate Data
+initial_force_plate <- downsample_with_labels(initial_force_plate)                  #Downsampling with labels for Force Plate Data
 secondary_force_plate <- downsample_no_labels(secondary_force_plate)                   #Downsampling with no labels for using as grounth truth provided by Force Plate 
 
 newheaders <- c("LC_1", "LC_2", "LC_3", "LC_4","ZMP_location")                   # 
