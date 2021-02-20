@@ -11,19 +11,22 @@ Adafruit_ADS1015 ads1015_2(0x49);  Adafruit_ADS1015 ads1015_3(0x4A);  Adafruit_A
 void setup() {
   Serial.begin(9600);
   ads1015.begin();    //initializing amplifiers
-  ads1015_2.begin();    
+  ads1015_2.begin();
+  ads1015.setGain(GAIN_SIXTEEN); 
+  ads1015_2.setGain(GAIN_SIXTEEN);
+      
 
 }
 
 int16_t adc0, adc1, adc2, adc3;  //, adc4, adc5, adc6, adc7;
 float count = 0;                  //it is important that this value is a float to avoid roundig problems 
-float val = 0;                    // it is important that this value is a float to avoid roundig problems 
+float val = 0;                    // it is important that this value is a float to avoid roundig problems
+float a,b,processing_time; 
 
 void loop() {
   count = count + 1 ; 
-  ads1015.setGain(GAIN_SIXTEEN); 
-  ads1015_2.setGain(GAIN_SIXTEEN);
-  
+
+  a=millis();
   adc0 = ads1015.readADC_Differential_0_1();                  //read difference between 0 and 1 input on first amplifier
   //val = ((count-1)/count) * val + (1/count)*adc0;           // to get average reading value when no load
   //adc0=adc0-1;
@@ -31,7 +34,6 @@ void loop() {
   //Serial.println(val);
   Serial.println(adc0);
   
-
   adc1=ads1015.readADC_Differential_2_3(); 
   //val = ((count-1)/count) * val + (1/count)*adc1; 
   //adc1=adc1+4;
@@ -52,6 +54,9 @@ void loop() {
   //val=(adc3/1.0f)*60.0f;
   //Serial.println(-val);
   Serial.println(adc3);
+  b=millis();
+  processing_time = b-a;
+  //Serial.println(processing_time);
   /**/
   delay(100);
 

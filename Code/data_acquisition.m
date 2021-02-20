@@ -14,7 +14,7 @@ end
 clear all;
 clc;
 %%
-s_1=serial('COM6','baudrate',9600);
+s_1=serial('COM5','baudrate',9600);
 
 
 %Biped
@@ -22,19 +22,19 @@ try
     fopen(s_1);
 catch error
     fclose(instrfind);
-    error('Make sure you select the correct COM6 Port where the Arduino is connected.');
+    error('Make sure you select the correct COM5 Port where the Arduino is connected.');
 end
 
 sensor_lecture = 25000; 
-number_of_sensors = 8;       
+number_of_sensors = 4;       
 lecture_line = sensor_lecture/number_of_sensors;
 
-data_biped = zeros (lecture_line,number_of_sensors);
+data = zeros (lecture_line,number_of_sensors);
 batch_line_array = zeros (1,lecture_line);
 batch_size = 25;
 batch_line = 1;
 CoP_cue = 1;
-biggest_CoP_value = 9;
+biggest_CoP_value = 4;
 waith_time=0;
 transition_waiting_time = 20;        %To have control over the batch transition time, specially to coordinate two DAQ instances 
 
@@ -57,7 +57,7 @@ for data_line = 1: lecture_line
     for data_column = 1:number_of_sensors
         b = str2double(fgetl(s_1));              %read line from file
         if b                                %if there is a line
-            data_biped(data_line,data_column) = b;
+            data(data_line,data_column) = b;
         end
     end
     if batch_line_array(data_line)==1                  %there are 25 lines per batch, only enter this when value of a line is 1
@@ -77,18 +77,18 @@ end
 fclose(s_1);
 record_end_time = clock;
 
-data_biped=data_biped';
-data_biped = circshift(data_biped,1);
-data_biped=data_biped';
+data=data';
+data = circshift(data,1);
+data=data';
 
-data_biped_with_time = [record_start_time(3:6);data_biped;record_end_time(3:6)];
+data_biped_with_time = [record_start_time(3:6);data;record_end_time(3:6)];
 
-writematrix(data_biped_with_time,'initial_force_plate_data_1_021021.txt'); 
+writematrix(data_biped_with_time,'force_plate_with_biped_data_4_021321.txt'); 
 
 figure()
 
 for data_column = 1 : number_of_sensors
-    plot(data_biped(:,data_column));
+    plot(data(:,data_column));
     hold on 
 end
 

@@ -11,7 +11,9 @@ Adafruit_ADS1015 ads1015_2(0x49);  //Adafruit_ADS1015 ads1015_3(0x4A);  Adafruit
 void setup() {
   Serial.begin(9600);
   ads1015.begin();    //initializing amplifiers
-  ads1015_2.begin();    
+  ads1015_2.begin(); 
+  ads1015.setGain(GAIN_SIXTEEN); 
+  ads1015_2.setGain(GAIN_SIXTEEN);   
 
 }
 
@@ -22,8 +24,7 @@ float a,b,processing_time;
 
 void loop() {
   count = count + 1 ; 
-  ads1015.setGain(GAIN_SIXTEEN); 
-  ads1015_2.setGain(GAIN_SIXTEEN);
+
   
   a=millis();
   adc0 = ads1015.readADC_Differential_0_1();                  //read difference between 0 and 1 input on first amplifier
