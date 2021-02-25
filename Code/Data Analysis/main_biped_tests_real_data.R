@@ -11,13 +11,13 @@ library("lattice")
 ####### 
 # loading RAW files:
 
-mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/Biped/9_points_5V_Sensors_in_Center_V2/initial_force_plate_data_1_021321.txt"   
+mypath_1 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/Biped/4_points_5V_Sensors_in_Center_V2/initial_force_plate_data_2_021321.txt"   
 prebiped_data.raw <- read.csv(mypath_1)                                                   # Creating prebiped_data frame from prebiped_data csv file
 
-mypath_2 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/Biped/9_points_5V_Sensors_in_Center_V2/force_plate_with_biped_data_1_021321.txt"   
+mypath_2 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/Biped/4_points_5V_Sensors_in_Center_V2/force_plate_with_biped_data_2_021321.txt"   
 postbiped_data.raw <- read.csv(mypath_2)                                                   # Creating prebiped_data frame from prebiped_data csv file
 
-mypath_3 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/Biped/9_points_5V_Sensors_in_Center_V2/biped_leg_test_simut_0213_1.txt" 
+mypath_3 <- "C:/Users/dario/Documents/Github/Cat_skin/Data/Backup/Biped/4_points_5V_Sensors_in_Center_V2/biped_leg_test_simut_0213_2.txt" 
 leftleg_data.raw <- read.csv(mypath_3)
 
 #mypath_4 <- "C:/Users/dario/Documents/Github/Cat_skin/Code/Data Analysis/Test_files for_biped_analyses/right_foot_skin.txt" 
@@ -27,7 +27,7 @@ leftleg_data.raw <- read.csv(mypath_3)
 #DOWNSAMPLING data, and adding column names
 
 downsample_with_labels <- function(x){                                           # downsampling funtion
-   zmp_posotions_all = rep(c(1:9), times = ceiling(nrow(x)/(25*9)))              # generating label patterns
+   zmp_posotions_all = rep(c(1:4), times = ceiling(nrow(x)/(25*3)))              # generating label patterns
    data.downsampled = x[seq(12,nrow(x),25),]                                     # down sampling prebiped_data seq.int(from, to, by, length.out, along.with, ...)
    data.downsampled[,5] = zmp_posotions_all[1:250]                               # selecting labels to fit the prebiped_data size
    return (data.downsampled)
