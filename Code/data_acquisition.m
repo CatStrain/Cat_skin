@@ -10,65 +10,85 @@ try                     %this is used to close the remaining portal and files
     fclose(s);          
     %fclose(fileID);
 end
-%%
+
 clear all;
-clc;  % clear all variables
+clc;
 %%
-
-s = serial('COM5');  
-set(s,'BaudRate',9600);  
-fopen(s);  
- 
-wheaston_bridges_lecture = 25000; 
-wheaston_bridges = 4;       
-total_batches = wheaston_bridges_lecture/wheaston_bridges;
+s_1=serial('COM5','baudrate',9600);
 
 
-data_2 = zeros (total_batches,wheaston_bridges);
-flags = zeros (1,total_batches);
-flag_distance = 25;
-count = 1;
-flag_num = 1;
-last_flag_num = 9;
-
-for flag = 1: total_batches
-    if count == flag_distance
-        count = 0;
-        flags(flag)=1 ;
-    end   
-    count = count + 1;
+%Biped
+try
+    fopen(s_1);
+catch error
+    fclose(instrfind);
+    error('Make sure you select the correct COM5 Port where the Arduino is connected.');
 end
+
+sensor_lecture = 25000; 
+number_of_sensors = 4;       
+lecture_line = sensor_lecture/number_of_sensors;
+
+data = zeros (lecture_line,number_of_sensors);
+batch_line_array = zeros (1,lecture_line);
+batch_size = 25;
+batch_line = 1;
+CoP_cue = 1;
+biggest_CoP_value = 4;
+waith_time=0;
+transition_waiting_time = 20;        %To have control over the batch transition time, specially to coordinate two DAQ instances 
+
+for i = 1: lecture_line             %to show flags every 25 lines of data file reading (one barch, 25 lines)
+    if batch_line == batch_size
+        batch_line = 0;
+        batch_line_array(i)=1 ;
+    end   
+    batch_line = batch_line + 1;
+end
+%%
+% prompt = 'Press any key to continue...';
+% x = input(prompt)
 
 fprintf ('data colection started')
-for data_rows = 1: total_batches
-    for wb = 1:wheaston_bridges
-        b = str2num(fgetl(s));              %read line from file
+
+record_start_time = clock;
+%batch_record_start_time = clock;
+for data_line = 1: lecture_line
+    for data_column = 1:number_of_sensors
+        b = str2double(fgetl(s_1));              %read line from file
         if b                                %if there is a line
-            data_2(data_rows,wb) = b;
+            data(data_line,data_column) = b;
         end
     end
-    if flags(data_rows)==1
-        %fprintf('Flag')
-        if flag_num == last_flag_num
-            flag_num = 0;
+    if batch_line_array(data_line)==1                  %there are 25 lines per batch, only enter this when value of a line is 1
+        fprintf ('25 data lines recorded...')
+        if CoP_cue == biggest_CoP_value
+            CoP_cue = 0;                   %
         end
-        flag_num = flag_num +1
-        
+%         while (waith_time < transition_waiting_time)         %This loop won't allow the code to continue until the transition_waiting_time condition is met
+%             referece_clock = clock;
+%             waith_time = (referece_clock(5)*60 + referece_clock(6)) - (batch_record_start_time(5)*60 + batch_record_start_time(6));
+%             %fprintf("waiting for the difference to be bigger than 60...\n") 
+%         end
+%         batch_record_start_time = clock;
+        CoP_cue = CoP_cue +1        
     end
 end
-%data_2 = circshift(data_2,5)';
-%data_2
-%DUM...
-data_2=data_2';
-data_2 = circshift(data_2,1);
-data_2=data_2'
-%...DUM
-writematrix(data_2,'test_122220_6_SpringPlant_ProximalAttachment_randomF.txt'); 
+fclose(s_1);
+record_end_time = clock;
+
+data=data';
+data = circshift(data,1);
+data=data';
+
+data_biped_with_time = [record_start_time(3:6);data;record_end_time(3:6)];
+
+writematrix(data_biped_with_time,'force_plate_with_biped_data_4_021321.txt'); 
 
 figure()
 
-for wb = 1 : wheaston_bridges
-    plot(data_2(:,wb));
+for data_column = 1 : number_of_sensors
+    plot(data(:,data_column));
     hold on 
 end
 

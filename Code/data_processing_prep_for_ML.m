@@ -9,7 +9,7 @@ zmp_position = 1;
 zmp_position_limit = 9;
 row_l_data = 1;
 
-data = importdata('C:\Users\dario\Google Drive\USC\Projects\Biped\Figure 2_Raw Signals\test_122220_3_SpringPlant_ProximalAttachment_blackMass.txt');
+data = importdata('C:\Users\dario\Google Drive\USC\Projects\Biped\Figures_and_Tables\Figure 2_Raw Signals\Material\test_0111_800g_lessstiff+black_constant_2.txt');
 %labeled_and_labeled_data = zeros (floor(size(data,1)/flag_distace), size(data,2)+1);
 %csv_file_name = 'test_121620_1_Loadcells_blackMass' 
 %%
