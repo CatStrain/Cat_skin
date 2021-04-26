@@ -8,6 +8,7 @@ This repository contains the code to calculate the Center of Pressure (CoP) of a
 <Amplifier__calibration.ino> + <Amplifier_calibration_0210.ino>  are for the LC and band calibration
 
 <Amplifier_band_0105_band_and_LC.ino> band(with strain gauge) + spring ligament
+
 ![image](https://user-images.githubusercontent.com/65510682/116017132-975ca800-a5f3-11eb-927f-e97a5043c751.png)
 
 <Amplifier_band_0219_single_16.ino> + <Amplifier_band_0208_biped.ino> are for single leg and biped legs (skin version and band version)
