@@ -13,7 +13,7 @@ This repository contains the code to calculate the Center of Pressure (CoP) of a
 
 <Amplifier_band_0219_single_16.ino> + <Amplifier_band_0208_biped.ino> are for single leg and biped legs (skin version and band version)
 
-For experiment and testing, please check the <code> folder
+For experiment and testing, please check the 'code' folder
 
 
 
