@@ -2,14 +2,22 @@
 
 This repository contains the code to calculate the Center of Pressure (CoP) of a biped based on skin strain signals. The included code: 
 
-  - Data acqusitions (GitHub: [DAQ])
-  
-        -Record data from strain gauges on a skin using C++ and MATLAB code
-        
-  - Data Analysis (GitHub: [DAnalysis])
-  
-        -K-Nearest-Neighbor (KNN) approach to train and test the biped's CoP preciction accuracy
-        -5-Fold Cross-Validation to assess the validity of our estimator 
+  ### Amplifier(HX711+ads1015)
+  this folder contains Arduino code for [skin project]
+  ### Flex sensor+gloves
+  this folder contains Arduino code for [Hand project]
+<Flex_sensor_circuit>
+
+<Flex_sensor_circuit_5.5_>
+
+<Flex_sensor_circuit_5.5_testing>
+
+<Flex_sensor_circuit_single_glove>
+
+<Flex_sensor_circuit_single_glove_extra_sensor>
+
+<Flex_sensor_circuit_single_glove_right_hand>
+
 
 
 #### Clone the repositoy in your computer by typing in the command line:
