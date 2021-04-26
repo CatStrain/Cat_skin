@@ -28,12 +28,12 @@ Those are for flex sensor attached to the glove:
 
 <Flex_sensor_circuit_5.5_testing>
 
-<Flex_sensor_circuit_single_glove>
+<Flex_sensor_circuit_single_glove> ** 6 sensors (two on thumb) 
 
-<Flex_sensor_circuit_single_glove_extra_sensor>
+<Flex_sensor_circuit_single_glove_extra_sensor> ** 10 sensors + glove(human hand)
 
 <Flex_sensor_circuit_single_glove_right_hand> ** sensors attached to gloves with foam hand
-
+https://files.slack.com/files-pri/TRS2HTQV9-F020BV3M7TK/image.png
 
 #### Clone the repositoy in your computer by typing in the command line:
 
