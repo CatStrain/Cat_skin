@@ -15,7 +15,9 @@ This repository contains the code to calculate the Center of Pressure (CoP) of a
 
 For experiment and testing, please check the 'code' folder
 
+### hx711
 
+HX711 https://www.sparkfun.com/products/13879
 
   ### Flex sensor+gloves
 this folder contains Arduino code for [Hand project]
